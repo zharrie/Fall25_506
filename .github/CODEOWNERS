@@ -1,0 +1,7 @@
+# This is a CODEOWNERS file for automatically assigning reviewers to PRs
+
+# These owners will be the default owners for everything in the repo
+* @zharrie
+
+# Specific file types
+*.py @zharrie
