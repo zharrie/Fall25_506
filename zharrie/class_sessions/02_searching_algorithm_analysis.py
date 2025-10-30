@@ -475,7 +475,7 @@ Comparisons made: 6
 
 --- BINARY SEARCH ---
 Result: Found 32 at index 5
-Comparisons made: 3
+Comparisons made: 2
 
 Analysis: Binary search used 50% fewer comparisons!
 
@@ -530,7 +530,6 @@ Why Do We Need Big O Notation?
 ✓ Independent of hardware
 ✓ Independent of programming language
 ✓ Focused on scalability (how it grows with input size)
-The Solution: Big O Notation
 
 Understanding Constant Time Operations
 Before we analyze algorithms, we need to understand what counts as a "single operation."
@@ -583,7 +582,6 @@ factorial(n)  # Depends on n
 """
 Big O Notation: The Formal Definition
 Big O notation describes the upper bound of an algorithm's growth rate.
-
 More simply: How does runtime grow as input size (N) increases?
 
 The Rules for Determining Big O
@@ -622,8 +620,8 @@ def example2(arr):
 # Total: N² + N + 1 operations
 # Big O: O(N² + N + 1) → O(N²)
 # We keep only N² because it grows fastest
+# Why? Let's see with actual numbers:
 """
-Why? Let's see with actual numbers:
 
 N	    N²	        N	    1	    Total	    N² percentage
 10	    100	        10	    1	    111	        90%
@@ -797,7 +795,6 @@ def bubble_sort(arr):
 # O(2^N) - Exponential
 def fibonacci_recursive(n):
     # Makes two recursive calls each time
-    # We'll study this later
     pass
 
 # Examples: 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024
@@ -1244,21 +1241,20 @@ def factorial_iterative(n):
     return result
 """
 Comparison:
+Aspect	            Recursion	                Iteration
+Code clarity	    Often clearer	            Can be more verbose
+Memory usage	    Uses stack (more)	        Uses less memory
+Performance	        Slower (function calls)	    Faster
+Natural fit	        Trees, divide-and-conquer	Sequential processing
+Risk	            Stack overflow	            Infinite loop
 
-Aspect	Recursion	Iteration
-Code clarity	Often clearer	Can be more verbose
-Memory usage	Uses stack (more)	Uses less memory
-Performance	Slower (function calls)	Faster
-Natural fit	Trees, divide-and-conquer	Sequential processing
-Risk	Stack overflow	Infinite loop
 When to use recursion:
-
 ✓ Problem naturally divides into smaller subproblems
 ✓ Working with tree/graph structures
 ✓ Divide-and-conquer algorithms
 ✓ Code clarity is important and stack depth is manageable
-When to use iteration:
 
+When to use iteration:
 ✓ Simple sequential processing
 ✓ Memory is constrained
 ✓ Maximum performance needed
@@ -1296,12 +1292,8 @@ T(N) = O(1) + T(N/2)
 This is called a recurrence relation: a function defined in terms of itself with smaller input.
 
 Method 1: Count the Recursive Calls
-
 Binary Search:
-
-
 How many times do we recurse?
-
 N → N/2 → N/4 → N/8 → ... → 1
 
 Examples:
@@ -1310,29 +1302,19 @@ Examples:
 64 → 32 → 16 → 8 → 4 → 2 → 1  (6 steps)
 
 Pattern: log₂(N) steps
-
 Each step does O(1) work
-
 Total: O(log N)
+
 Linear Factorial:
-
-
 factorial(N) calls factorial(N-1) calls factorial(N-2) ... calls factorial(1)
-
 N → N-1 → N-2 → ... → 1
-
 Number of calls: N
-
 Each call does O(1) work
-
 Total: O(N)
+
 Method 2: Recursion Trees
-
 A recursion tree visualizes the recursive calls and work done at each level.
-
 Example: Fibonacci (inefficient version)
-
-
                          fib(5) ................. Level 0: 1 call
                         /      \
                     fib(4)      fib(3) .......... Level 1: 2 calls
@@ -1352,45 +1334,37 @@ Pattern:
 - Level k: 2^k calls
 
 Maximum depth: N (when we reach fib(0))
-
 Total calls: 2^0 + 2^1 + 2^2 + ... + 2^N ≈ 2^N
-
 Time Complexity: O(2^N) - Exponential!
+
 Common Recurrence Patterns
-
 Pattern 1: Single recursive call on half
-
-
 T(N) = O(1) + T(N/2)
 Example: Binary search
 Solution: O(log N)
+
 Pattern 2: Single recursive call on N-1
-
-
 T(N) = O(1) + T(N-1)
 Example: Factorial
 Solution: O(N)
+
 Pattern 3: Two recursive calls on half
-
-
 T(N) = O(1) + 2T(N/2)
 Example: (Coming later - tree traversal)
 Solution: O(N)
+
 Pattern 4: Two recursive calls on N-1
-
-
 T(N) = O(1) + T(N-1) + T(N-2)
 Example: Fibonacci (naive)
 Solution: O(2^N)
+
 Pattern 5: Recursive calls with linear work
-
-
 T(N) = O(N) + 2T(N/2)
 Example: Merge sort (coming later)
 Solution: O(N log N)
-Detailed Analysis: Recursive Binary Search
 """
 
+# Detailed Analysis: Recursive Binary Search
 def binary_search_recursive(numbers, key, low, high):
     if low > high:            # O(1) - comparison
         return -1
