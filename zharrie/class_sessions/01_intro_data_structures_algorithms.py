@@ -389,7 +389,7 @@ This is the single most important lesson. No data structure is perfect for every
 The way data is organized directly determines how fast you can perform operations on it. Searching for a name in an unsorted list of a million people is slow. Searching for that same name in a hash table is instantaneous. The choice of data structure is not a minor detail—it is often the primary factor that determines whether a program is fast and scalable or slow and unusable.
 
 3. Big O Notation is the Language of Efficiency.
-We need a standardized way to talk about "fast" and "slow." Big O notation is that language. It's not about timing an algorithm with a stopwatch; it's about understanding how its performance scales as the input data grows. Students should leave knowing the difference between O(1) (excellent), O(log n) (great), O(n) (fair), and O(n^2) (bad), and why it matters so much for large datasets.
+We need a standardized way to talk about "fast" and "slow." Big O notation is that language. It's not about timing an algorithm with a stopwatch; it's about understanding how its performance scales as the input data grows.
 
 4. Problem Solving Starts with Identifying the Core Operations.
 Before writing a single line of code, you must analyze the problem. 
