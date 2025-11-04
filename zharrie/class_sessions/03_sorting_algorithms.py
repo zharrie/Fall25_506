@@ -12,28 +12,35 @@ Let's dive in.
 # Mental Model: Scan entire list, grab the smallest, place it first. Repeat.
 
 def selection_sort(numbers):
-    """Find minimum, swap to front, repeat"""
-    for i in range(len(numbers) - 1):
-        # Find smallest in remaining portion
-        min_idx = i
-        for j in range(i + 1, len(numbers)):
-            if numbers[j] < numbers[min_idx]:
-                min_idx = j
-        
-        # Swap it into position
-        numbers[i], numbers[min_idx] = numbers[min_idx], numbers[i]
+   for i in range(len(numbers)-1):
+      
+      # Find index of smallest remaining element
+      index_smallest = i
+      for j in range(i+1, len(numbers)):
+         
+         if numbers[j] < numbers[index_smallest]:
+            index_smallest = j
+      
+      # Swap numbers[i] and numbers[index_smallest]
+      temp = numbers[i]
+      numbers[i] = numbers[index_smallest]
+      numbers[index_smallest] = temp
 
 # Demo
-data = [64, 25, 12, 22, 11]
-print(f"Before: {data}")
-selection_sort(data)
-print(f"After:  {data}")
+# Create a list of numbers to sort
+numbers = [10, 2, 78, 4, 45, 32, 7, 11]
 
-#Visualization:
-[64, 25, 12, 22, 11]  #→ Find min (11), swap with 64
-[11, 25, 12, 22, 64]  #→ Find min (12), swap with 25
-[11, 12, 25, 22, 64]  #→ Find min (22), swap with 25
-[11, 12, 22, 25, 64]  #→ Done!
+# Display the contents of the list
+print('UNSORTED:', numbers)
+
+# Call the selection_sort() function
+selection_sort(numbers)
+
+# Display the (sorted) contents of the list
+print('SORTED:', numbers)
+
+#UNSORTED: [10, 2, 78, 4, 45, 32, 7, 11]
+#SORTED: [2, 4, 7, 10, 11, 32, 45, 78]
 
 """
 Complexity: O(N²)
@@ -43,19 +50,32 @@ Use when: Educational purposes, arrays < 50 elements
 #Insertion Sort: The Card Player's Approach
 #Mental Model: Like sorting cards in your hand—take next card, insert where it belongs.
 def insertion_sort(numbers):
-    """Insert each element into its correct position in sorted portion"""
     for i in range(1, len(numbers)):
         j = i
-        # Shift element left until in correct position
-        while j > 0 and numbers[j] < numbers[j - 1]:
-            numbers[j], numbers[j - 1] = numbers[j - 1], numbers[j]
-            j -= 1
 
-# Demo
-data = [12, 11, 13, 5, 6]
-print(f"Before: {data}")
-insertion_sort(data)
-print(f"After:  {data}")
+        # Insert numbers[i] into sorted part 
+        # stopping once numbers[i] in correct position
+        while j > 0 and numbers[j] < numbers[j - 1]:
+            # Swap numbers[j] and numbers[j - 1]
+            temp = numbers[j]
+            numbers[j] = numbers[j - 1]
+            numbers[j - 1] = temp
+            j -= 1
+    
+# Create a list of unsorted values    
+numbers = [10, 2, 78, 4, 45, 32, 7, 11]
+
+# Print unsorted list
+print('UNSORTED:', numbers)
+
+# Call the insertion_sort function
+insertion_sort(numbers)
+
+# Print sorted list
+print('SORTED:', numbers)
+
+#UNSORTED: [10, 2, 78, 4, 45, 32, 7, 11]
+#SORTED: [2, 4, 7, 10, 11, 32, 45, 78]
 
 #The Secret Weapon: Performance on nearly-sorted data!
 import time
@@ -113,46 +133,68 @@ Result: [5, 7, 1] [8, 9, 10]
 
 Recursively sort each partition!
 """
-def partition(numbers, low, high):
-    """Partition array around pivot, return division point"""
-    # Choose middle element as pivot
-    mid = low + (high - low) // 2
-    pivot = numbers[mid]
-    
-    left, right = low, high
-    
-    while True:
-        # Move pointers toward elements that need swapping
-        while numbers[left] < pivot:
-            left += 1
-        while numbers[right] > pivot:
-            right -= 1
-        
-        # If pointers crossed, we're done
-        if left >= right:
-            return right
-        
-        # Swap misplaced elements
-        numbers[left], numbers[right] = numbers[right], numbers[left]
-        left += 1
-        right -= 1
+# The partition() function used by quicksort.
+def partition(numbers, start_index, end_index):
+    # Select the middle value as the pivot.
+    midpoint = start_index + (end_index - start_index) // 2
+    pivot = numbers[midpoint]
+   
+    # "low" and "high" start at the ends of the list segment
+    # and move towards each other.
+    low = start_index
+    high = end_index
+   
+    done = False
+    while not done:
+        # Increment low while numbers[low] < pivot
+        while numbers[low] < pivot:
+            low = low + 1
+      
+        # Decrement high while pivot < numbers[high]
+        while pivot < numbers[high]:
+            high = high - 1
+      
+        # If low and high have crossed each other, the loop
+        # is done. If not, the elements are swapped, low is
+        # incremented and high is decremented.
+        if low >= high:
+            done = True
+        else:
+            temp = numbers[low]
+            numbers[low] = numbers[high]
+            numbers[high] = temp
+            low = low + 1
+            high = high - 1
+   
+    # "high" is the last index in the left segment.
+    return high
 
-def quicksort(numbers, low, high):
-    """Recursively sort using quicksort"""
-    if low >= high:
+# The quicksort() algorithm
+def quicksort(numbers, start_index, end_index):
+    # Only attempt to sort the list segment if there are
+    # at least 2 elements
+    if end_index <= start_index:
         return
-    
-    # Partition and get division point
-    div = partition(numbers, low, high)
-    
-    # Sort both sides
-    quicksort(numbers, low, div)
-    quicksort(numbers, div + 1, high)
+          
+    # Partition the list segment
+    high = partition(numbers, start_index, end_index)
 
-# Demo
-data = [10, 7, 8, 9, 1, 5]
-quicksort(data, 0, len(data) - 1)
-print(f"Sorted: {data}")
+    # Recursively sort the left segment
+    quicksort(numbers, start_index, high)
+
+    # Recursively sort the right segment
+    quicksort(numbers, high + 1, end_index)
+
+# Main program to test the quicksort algorithm.
+numbers = [12, 18, 3, 7, 32, 14, 91, 16, 8, 57]
+print('UNSORTED:', numbers)
+
+quicksort(numbers, 0, len(numbers)-1)
+print('SORTED:', numbers)
+
+#UNSORTED: [12, 18, 3, 7, 32, 14, 91, 16, 8, 57]
+#SORTED: [3, 7, 8, 12, 14, 16, 18, 32, 57, 91]
+
 """
 Complexity:
 Average:O(NlogN) - logN partition levels
@@ -182,48 +224,70 @@ Visual:
 [3, 9, 10, 27, 38, 43, 82]
 """
 
-def merge(numbers, left_start, left_end, right_end):
-    """Merge two sorted adjacent partitions"""
-    # Create temp array
-    merged = []
-    left_pos = left_start
-    right_pos = left_end + 1
+def merge(numbers, left_first, left_last, right_last):
+
+    merged_size = right_last - left_first + 1
+    merged_nums = [0] * merged_size
+    merge_pos = 0
+    left_pos = left_first
+    right_pos = left_last + 1
     
-    # Compare and take smaller element
-    while left_pos <= left_end and right_pos <= right_end:
+    # Add smallest element from left or right partition to merged numbers
+    while left_pos <= left_last and right_pos <= right_last:
         if numbers[left_pos] <= numbers[right_pos]:
-            merged.append(numbers[left_pos])
+            merged_nums[merge_pos] = numbers[left_pos]
             left_pos += 1
+      
         else:
-            merged.append(numbers[right_pos])
+            merged_nums[merge_pos] = numbers[right_pos]
             right_pos += 1
+       
+        merge_pos += 1
+  
+    # If left partition is not empty, add remaining elements to merged numbers
+    while left_pos <= left_last:
+        merged_nums[merge_pos] = numbers[left_pos]
+        left_pos += 1
+        merge_pos += 1
     
-    # Add remaining elements
-    merged.extend(numbers[left_pos:left_end + 1])
-    merged.extend(numbers[right_pos:right_end + 1])
+    # If right partition is not empty, add remaining elements to merged numbers
+    while right_pos <= right_last:
+        merged_nums[merge_pos] = numbers[right_pos]
+        right_pos += 1
+        merge_pos += 1
     
-    # Copy back to original
-    for i, val in enumerate(merged):
-        numbers[left_start + i] = val
+    # Copy merged_nums back to numbers
+    for merge_pos in range(merged_size):
+        numbers[left_first + merge_pos] = merged_nums[merge_pos]
 
-def merge_sort(numbers, start, end):
-    """Recursively sort using merge sort"""
-    if start >= end:
-        return
-    
-    mid = (start + end) // 2
-    
-    # Sort both halves
-    merge_sort(numbers, start, mid)
-    merge_sort(numbers, mid + 1, end)
-    
-    # Merge them
-    merge(numbers, start, mid, end)
 
-# Demo
-data = [38, 27, 43, 3, 9, 82, 10]
-merge_sort(data, 0, len(data) - 1)
-print(f"Sorted: {data}")
+def merge_sort(numbers, start_index, end_index):
+    if start_index < end_index:
+        # Find the midpoint in the partition
+        mid = (start_index + end_index) // 2
+        
+        # Recursively sort left and right partitions
+        merge_sort(numbers, start_index, mid)
+        merge_sort(numbers, mid + 1, end_index)
+        
+        # Merge left and right partitions in sorted order
+        merge(numbers, start_index, mid, end_index)
+
+
+# Create a list of unsorted values
+numbers = [61, 76, 19, 4, 94, 32, 27, 83, 58]
+
+# Print unsorted list
+print(f"UNSORTED: {numbers}")
+
+# Call merge_sort() to sort the list
+merge_sort(numbers, 0, len(numbers) - 1)
+
+# Print sorted list
+print(f"SORTED: {numbers}")
+
+#UNSORTED: [61, 76, 19, 4, 94, 32, 27, 83, 58]
+#SORTED: [4, 19, 27, 32, 58, 61, 76, 83, 94]
 
 """
 Complexity:
