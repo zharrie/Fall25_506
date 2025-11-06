@@ -16,7 +16,6 @@ class Searcher:
             output = comparer.compare(sorted_list[mid], key)
         
             # Compare middle element with key and decide next step
-            # Evelyn try to use 0 instead of key (so int comparison). If the output is less than zero you are going to check the lower part of the sorted array
             if output < 0:
                 # Key is in the right half
                 # Move low pointer to exclude left half and middle
