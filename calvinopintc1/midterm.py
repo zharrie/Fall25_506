@@ -184,17 +184,16 @@ def sumDigits(n):
     
     # Recursive case: add last digit to sum of remaining digits
 
-    #I was not able to come up with the recursive case in enough time but I was 
-    #able to do it iteratively 
-    
-    n_string = str(n)
-    sum = 0
+    #iterative case
 
-    for char in n_string:
-        int_n = int(char)
-        sum = sum+ int_n
+    # n_string = str(n)
+    # sum = 0
 
-    return sum
+    # for char in n_string:
+    #     int_n = int(char)
+    #     sum = sum+ int_n
+
+    return (n % 10 + sumDigits(n // 10)) #mod gives the last number and division will return the previous 3 digit number rounded to the lowest
 
 
 # Test your function
