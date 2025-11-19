@@ -11,8 +11,9 @@ class BrowserHistory:
         Visit a new page (add to history).
         Print which page was visited.
         """
-        # YOUR CODE HERE
-        pass
+        # add page to top of stack using push
+        self.history.append(url)
+        print(f"Visited: {url}")
     
     def go_back(self):
         """
@@ -20,24 +21,32 @@ class BrowserHistory:
         Return the URL that was removed.
         If no history, return "No pages to go back to"
         """
-        # YOUR CODE HERE
-        pass
+        #removing the most recent page using pop
+        if len(self.history) == 0:
+            return "No pages to go back to"
+        return self.history.pop()
     
     def current_page(self):
         """
         Return the current page (most recent) without removing it.
         If no history, return "No pages in history"
         """
-        # YOUR CODE HERE
-        pass
+        # to show top item without removing it we use peek
+        if len(self.history) == 0:
+            return "No pages in history"
+        return self.history[-1]
     
     def show_history(self):
         """
         Print all pages in history, numbered from oldest to newest.
         If empty, print "No history"
         """
-        # YOUR CODE HERE
-        pass
+        #printing all pages from bottom to top
+        if len(self.history) == 0:
+            print("No history")
+            return
+        for i, page in enumerate(self.history, start=1):
+            print(f"{i}. {page}")
 
 # Test your code
 browser = BrowserHistory()
@@ -87,6 +96,7 @@ Current page: github.com
 """
 
 
+
 # 2. Using Built-in Sort vs Manual Sort (10 points)
 """
 Compare sorting approaches and understand when to use each.
@@ -115,21 +125,24 @@ def selection_sort(numbers):
 
 import random
 #generating random numbers 
-nums = [random.randint(1,100) for _ in range (30)]
+nums = [random.randint(1, 100) for _ in range(30)]
 
-#created two copies for both
-copy1 = nums.copy()
-copy2 = nums.copy()
+# making copies of list
+built_in_sorted = nums.copy()
+manual_sorted = nums.copy()
 
-# sorting using python's built in method
-copy1.sort()
+# built-in sort
+built_in_sorted.sort()
 
-#sorting using selection sort
-copy2 = selection_sort(copy2)
+# selection sort 
+selection_sort(manual_sorted)
 
-print("Built-in sort:", copy1)
-print("Manual sort:  ", copy2)
+# printing both results
+print("Built-in sort:", built_in_sorted)
+print("Manual sort:  ", manual_sorted)
 print("Match:", built_in_sorted == manual_sorted)
+
+# I would write my own sort when i need custom sorting behaviour to implement my own data structures vs i would use built in sort if i want faster results 
 
 
 
@@ -146,7 +159,7 @@ def sumDigits(n):
         return n
     
     # Recursive case: add last digit to sum of remaining digits
-    return # YOUR CODE HERE
+    return (n % 10) + sumDigits(n // 10)   # Recursive case
 
 
 # Test your function
@@ -166,3 +179,15 @@ Key Operations:
 # What is the main difference between a recursive function and an iterative function (one using loops)?
 # Can every recursive function be written iteratively? Can every iterative function be written recursively?
 # Give one advantage and one disadvantage of using recursion.
+
+#Difference between recursion and iteration:
+#Recursion calls the function itself repeatedly whereas Iteration uses loops like for loop.
+
+# yes every recursive function be written iteratively and every iterative function can be written recursively
+
+#advantage of recursion:
+#simpler and cleaner code for problems like divide-and-conquer.
+
+#disadvantage of recursion:
+#uses more memory and can cause stack overflow.
+
