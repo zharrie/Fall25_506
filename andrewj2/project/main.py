@@ -49,10 +49,26 @@ def display_cur_user():
 # === Stats Menu ===
 
 def graph_stats():
-    distances = network.bfs_traverse(0)
-    mprint(f"Graph diameter: {sorted(distances.values(), reverse=True)[0]}")
-    mprint(f"Graph connectivity: {"Connected" if len(distances) == network.get_total_users() else "Disconnected"}")
+    total = network.get_total_users()
+    visited = set()
+    islands = 0
+    diameter = 0
+    while len(visited) < network.get_total_users():
+        i = 0
+        while i in visited or not network.get_user_by_id(i):
+            i += 1
+            continue
 
+        distances = network.bfs_traverse(i, visit_fn=lambda u: visited.add(u.id))
+        islands += 1
+
+        d = sorted(distances.values(), reverse=True)[0]
+        if diameter < d: diameter = d
+
+    conn = "Fully connected" if islands == 1 else "Empty (no connections)" if islands == total else f"Disconnected ({islands} islands)"
+
+    mprint(f"Graph diameter: {diameter}")
+    mprint(f"Graph connectivity: {conn}")
 
 def user_stats():
     n_users = network.get_total_users()

@@ -94,11 +94,9 @@ class Network:
         while len(frontier) > 0:
             id = frontier.pop()
             user = self.get_user_by_id(id)
-            if not user:
-                continue
+            if not user: continue # error?
 
             if visit_fn: visit_fn(user.copy())
-
             if id == end_id: break
 
             for fid in user.friends:
@@ -109,3 +107,19 @@ class Network:
         
         return distances
 
+    def dfs_traverse(self, start_id, visit_fn=None, end_id=None):
+        v_stack = []
+        visited = set()
+
+        while len(v_stack) > 0:
+            id = v_stack.pop()
+            user = self.get_user_by_id(id)
+            if not user: continue # error?
+
+            if id not in visited:
+                if visit_fn: visit_fn(user.copy())
+                if id == end_id: break
+                visited.add(id)
+                
+                for fid in user.friends:
+                    v_stack.append(fid)

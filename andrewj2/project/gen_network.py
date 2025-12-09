@@ -1,42 +1,81 @@
-from SocialNetwork import User, Network
 import random as r
+import math
+from SocialNetwork import User, Network
+from names import names
 
-# credit: https://www.randomlists.com/random-names
-names = ["Matthew Fritz","Bailee Snow","Gemma Pruitt","Dallas Porter","Emery Sampson","Zariah Suarez","Jovani Nichols","Layla Gibbs","Jimena Carson","Makaila Barry","Charlotte Leach","Charlotte Haney","Aracely Nolan","Cara Heath","Viviana Howard","Willie Bartlett","James Donaldson","Susan Dixon","Blake Cantrell","Milo Potter","Kathryn Riddle","Kamora Hudson","Cassandra Wang","Siena Chung","Mylie Proctor","Drew Hays","Dwayne Long","Shaylee Perry","Alvaro Flynn","Ashly Ashley","Marie Bailey","Erica Li","Alberto Johns","Solomon Goodman","Isabelle Christensen","Kaylin Weiss","Melody Fuller","Presley Kirk","Elaine Keith","Alisha Maxwell","Johnny Ford","Benjamin Brennan","Ian Logan","Alexis Mayo","Dominic Maddox","Kelton Snow","Harley Navarro","Talon Branch","Aliyah Neal","Jayla Howe","Gisselle Wolfe","Brisa Cantu","Valentin Petty","Janelle Campbell","Jaelynn Ellis","Jordyn Ellis","Caiden Middleton","Amari Atkins","Semaj Massey","Cecilia Rollins","Andrew Carpenter","Zaire Perkins","Courtney Mendez","Howard Ward","Walker May","Nico Mcmillan","Natasha Herrera","Amare Lewis","Kylan Benjamin","Elle Anthony","Nikolas Jones","Sean Donaldson","Lane Mullins","Reese Dean","Antoine Graham","Davon Petty","Antoine Burns","Jonas Moyer","Jameson Cohen","Camren Trevino","Harmony Joseph","Isaiah Terrell","Catherine Kane","Phoebe Deleon","Nikhil Gordon","Kiara Savage","Chace Ferguson","Van Shaw","Irene Rodriguez","Haiden Ferrell","Paloma Hardy","Kyla Sosa","Antwan Tyler","Rohan Parsons","Isla Moody","Ana Ibarra","Adrianna Doyle","Ean Torres","Owen Hodges","Catherine Koch","Marlie Norris","Ahmad Kent","Jeffery Ferguson","Christopher Nielsen","Alanna Hull","Ann Bowman","Darwin Vega","Jacob Wang","Wesley Hampton","Tyree Horn","Mackenzie Avila","Rudy Hardin","Waylon Herman","Deja Fritz","Bethany Kramer","Viviana Kelley","Brynlee Warren","Miranda Hutchinson","Maximus Haley","Adyson Rosario","Neil Glenn","Kassidy Larsen","Sanai Green","Janessa Erickson","Tyree Shannon","Ian Higgins","David Jimenez","Lilly Woodard","Natasha Tucker","Lawrence Kerr","Zoie Foster","Keely Skinner","Ashlynn Beasley","Edgar Sparks","Ivy Clay","Xiomara Riggs","Areli Santiago","Vicente Ferguson","Rayna Peters","Shaylee Aguilar","Ann Reese","Carly Griffith","Gianni Sandoval","Claudia Choi","Savanna Mcdowell","Damaris Hahn","Destinee Knight","Mallory Blair","Ryann Robinson","Kaya Oconnell","Taryn Wolf","Harmony Dillon","Jakob Costa","Brody Doyle","Draven Acevedo","Megan Baldwin","Addisyn Whitehead","Xzavier Kemp","Camille Larson","Bailey Pineda","Saniya Green","Mathias Tucker","Erik Wilson","Joaquin Melendez","Fiona Nicholson","Kai Lowe","Scarlet Shannon","Tripp Gamble","Camren Rojas","Araceli Dickerson","Miranda Shea","Jairo Leach","Ashleigh Bowers","Jeremy Mullins","Raina Barnett","Jasper Sheppard","Lea Berry","Urijah Mclean","Jakob Horton","Leon Velazquez","Gretchen Figueroa","Tania Myers","Jayla Bullock","Robert Mckee","Whitney Norton","Kelsey Wang","Zoey Mueller","Lilian Hamilton","Nathaniel Holder","Denise Frazier","Dario Dickerson","Skyler Andersen","Khalil Gutierrez","Thalia Henson","Nasir Mcfarland","Jaylynn Bradshaw","Wyatt Black","Steven Mendez","Jaylene Ruiz","Gillian Strong","Samir Marshall","Camryn Mason","Sloane Young","Ainsley Fleming","Meadow Norton","Jeramiah Tran","Aria Dixon","Vicente Whitney","Brittany Bell","Paris Ross","Rosa Glover","Kane Macias","Anastasia Mayo","Soren Mann","Malcolm Dorsey","Royce Stein","Lane Mcgee","Tyler Mcguire","Emely Moon","Cameron Garrison","Cale Kane","Maverick Molina","Cody Parsons","Rodney Maddox","Jakobe Golden","Ellis Newman","Tess Meyer","Izaiah Stone","Hayden Ramsey","Gia York","Mylie Conley","Augustus Cooke","Guadalupe Hartman","Olive Calderon","Dominik Cantu","Jazmyn Bird","Kaitlynn Hanna","Adriel Potter","Calvin Summers","Lucille Mcneil","Tommy Reyes","Jaelyn Cardenas","Gerald Rose","Alannah Ibarra","Erick Mathis","Dario Alvarez","Jaylin Jones","Tripp Brewer","Austin Sherman","Parker Bailey","Leandro Cervantes","Laylah Daugherty","Diamond Joseph","Dennis Watson","Damon Adams","Daphne Chase","Brylee Doyle","Haleigh Huang","Jalen Ayala","Kamden Fischer","Allan Webb","Jaslene Singh","Nehemiah Navarro","Sierra Horne","Caylee Mcclure","Hailey Robertson","Caylee Alvarez","Eileen Hodge","Cassius Cross","Braylen Sosa","Reed Pham","Anabelle Rowe","Eden Richmond","Josh Wolf","Lorena Gomez","Sterling Floyd","Brycen Burns","Zaniyah Poole","Jean Jefferson","Barrett Newman","Miya Duffy","Sage Diaz","Jewel Burnett","Ryland Huynh","Jayla Becker","Marlon Barrett","Kayden Frye","Kayley Clements","Laci Franklin","Bria Garrison","Zariah Hodges","Josue Nunez","Kamila Horton","Hillary Robles","Camron Wu","Paityn Mccann","Eleanor Shelton","Avery Wright","Hector Farmer","Alexandra Randall","Ernest Navarro","Lainey Gomez","Journey Holmes","Addison Gray","Julian Burgess","Vincent Serrano","Kamila Landry","Jaylynn Santiago","Danika Weiss","Amber Raymond","Maddox Burnett","Zayne Mcdowell","Kyan Mueller","Breanna Mcdonald","Gwendolyn Monroe","Zackery Oneal","Winston Gallegos","Christian Bailey","Reed Richard","Frederick Branch","Darren Case","Moses Roberts","Mira Brennan","Brayan Jacobs","Julianna Payne","Maxim Donovan","Aspen Avery","Moses Jensen","Delaney Bruce","Zavier Dawson","Eden Clarke","Carly Benitez","Bryanna Graham","Brandon Perez","Elvis Floyd","Katie Benton","Kale Payne","Andre Clements","Yosef Novak","Jamie Sparks","Kingston Nelson","Caitlyn Reese","Cohen Chapman","Zaria Richard","Odin Ramos","Elise Long","Madelynn George","Kaila Warren","Jayvion Williamson","Lily Garrett","Humberto Stanley","Kaden Mathews","Audrina Bowers","Kaylyn Christensen","Elise Vazquez","Gaven Flores","Amirah Guzman","Jaylene Foley","Lena Chandler","Trystan Robbins","Macie Fernandez","Clarissa Levy","Rayna Farley","Serenity Madden","Cristal Mcbride","Cortez Glover","Stephanie Phillips","Kaiya Huff","Michaela Roberts","Baylee Rose","Elliot Giles","Lincoln Meyer","Helena Paul","Ty Love","Derick Avila","Joey Vega","Dylan Greene","Beckett Preston","Max Gilbert","Caden Page","Remington Torres","Janiyah Smith","Katrina Ellison","Paxton Beard","Elianna Franco","Rachel Maxwell","Carlee Raymond","Hannah Roman","Kaylynn Pruitt","Braylen Huffman","Alina Patrick","Averie Jennings","Graham Bond","Riya Osborn","Ronald Phelps","Marlie Gill","Pierce Rowe","Vivian Kidd","Akira Clay","Dakota Roman","Sofia Curry","Mario Massey","Johan Reid","Rowan Boone","Andrew Nicholson","Samson Cooke","Triston Russo","Jovani Stanton","Lewis Hester","Violet Medina","Mike Rush","Yaritza Adams","Julie Schultz","Izaiah Herrera","Sidney Livingston","Amaya Bonilla","Nickolas Booker","Aiden Morrow","Ethan Benitez","Janessa Mccall","Amirah Avery","Duncan Mcpherson","Vance Preston","Matthias Carney","Tucker Dalton","Karsyn Fletcher","Jovanny Lyons","Deshawn Hernandez","Keira Galloway","Sloane York","Kiera Mayer","Ansley Snow","Shirley Mosley","Kelton Beard","Dennis Bird","Vicente Abbott","Giada Short","Harmony Juarez","Skylar Shah","Yadiel Knox","Deshawn Miles","Teagan Simmons","Braxton Simpson","Chandler Whitaker","Xzavier Dalton","Caitlyn Spence","Jermaine Boone","Francis Petersen","Kendrick Zamora","Reese Cowan","Jadyn Leonard","Monica Hendricks","Ulises Watts","Cameron Long","Jesus Oconnell","Trey Dixon","Marin Drake","Aniyah Grimes","Jaliyah Hines","Mylee Barton","August Carrillo","Layla Davenport","Kasey Tyler","Sergio Browning","Heidi Olson","Maggie Esparza","Blaine Krueger","Stella Salinas","Chanel Wade","Kane Grant","Julio Gonzalez","Kaiya Steele","Ian Peterson","Cameron Escobar","Patrick Nichols","Carter Kirk","Shayna Lin","Antonio Hurst","Keegan Walters","Trey Edwards","Tanner Boyer","Leticia Oliver","Brenna Rich","Derrick Elliott","Jamar Pruitt","Gerardo Roth","Lyric Porter","Van Nolan","Aurora Pierce","Deja Sheppard","Yurem Jacobson","Mikayla Fitzpatrick","Jovanny Terrell","Karli Lindsey","Coby Tran","Mike Buckley","Anastasia Garza","Josue Hull","Owen Middleton","Adan Liu","Liberty Bauer","Eliza Cabrera","Madden Chase","Alex Terrell","Oscar Schwartz","Skyler Hart","Cindy Arias","Declan Mccullough","Meadow Beard","Kiley Miles","Willie Huffman","Asia Pineda","Daniela Hunt","Landen Nichols","Lukas Monroe","Denise Ponce","Alondra Leonard","Rigoberto Riggs","Zariah Meadows","Kamryn Spears","Carolina Rodriguez","Ellen Horton","Owen Bolton","Cristina Riggs","Marcel Lam","Addison Cannon","Gianni Gutierrez","Keagan Conway","Kallie Bishop","Jayson Norton","Cody Mooney","Gary Castillo","Jackson Jordan","Skyler Doyle","Halle Zavala","Titus Boyd","Ignacio Crawford","Arnav Horne","Winston Sloan","Kaylin Hood","Serenity Owen","Javion Barker","Asher Wilcox","Damon Gomez","Jaylan Barton","America Kidd","Karli Glover","Cailyn Weaver","Aldo Gordon","Julie Reeves","Alexia Barr","Kelsie Molina","Jean Prince","Kyler Frederick","Misael Friedman","Laila Dickson","Zara Bruce","Allan Singleton","Jamie Smith","Savion Whitaker","Jazmin Smith","Scarlet Holder","Ean Castaneda","Quincy Farley","Roger Rich","Izaiah Ferguson","Cameron Lambert","Alejandro Kirby","Dominique Grimes","Avery Salas","Alondra Crawford","Autumn Orozco","Albert Savage","Sierra Hanna","Rogelio Khan","Seth Burns","Kaylyn Mccann","Tiana Barr","Kara Hall","Nigel Sharp","Giada Villarreal","Tiana Baldwin","Lucy Ayers","Brynlee Steele","Aaden Montgomery","Madisyn Rose","Paulina Simpson","Moises James","Ishaan Brown","Lawrence Gardner","Lilly Abbott","Colby Reed","Soren Bailey","Ronin Francis","Karina Williamson","Jaxson Fox","Trenton Vang","Ryan Booth","Esperanza Day","Lance Wyatt","Laylah Pierce","Bianca Lowe","Kamryn Larson","Nickolas Rocha","Justin Pearson","Tamia Gentry","Amiya Russo","Damien Cochran","Rodolfo Lester","Aryan Monroe","Alia Harding","Reed Booker","Samantha Huffman","Fisher Frederick","Justine Haley","Aisha Calhoun","Kobe Ashley","Eli Christian","Katelynn Flynn","Desirae Marshall","Karly Shaffer","Elena Fowler","Ahmad Bernard","Jaqueline Howell","Isiah Ayers","Yaretzi Grimes","Reilly Maynard","Kaden Snow","Jeffery Woodward","Damion Lester","Yadiel Acevedo","Asia Barker","Alexia Oconnor","Ignacio Black","George Allison","Skyla Donaldson","Kaleb Gay","Juliet Leonard","Rylee Anthony","Estrella Ward","Cade Frey","Randall Villarreal","Emilia Madden","Bria Orr","Xiomara Bates","Isabela Diaz","Ryland Barajas","Zack Snow","Jasmine Carney","Corey Obrien","Jada Santos","Stephany Flowers","Lawson Yates","Taylor Kidd","Trenton Hobbs","Alijah Moran","Jesus Floyd","Abdullah Stanton","Hadassah Campbell","Cristina Carson","Tania Werner","Ari Stokes","Samir Dickerson","Selena Kirby","Kymani Nguyen","Mira Stuart","Derek Kennedy","Alissa Chaney","Nayeli Reese","Jenny Madden","Callie Atkinson","Keyon Salinas","Tiana Solis","Harley Berg","Kendal Ruiz","Harold Buckley","Emanuel Rowland","Raelynn Chapman","Angel Gregory","Darryl Mcintosh","Callie Pace","Sanai Gates","Lily Hanna","Kale Valdez","Yadiel Mcmillan","Zechariah Mata","Memphis Parrish","Kathy Hutchinson","Brynn Malone","Casey Ramirez","Itzel Lindsey","Camille Escobar","Elise Fischer","Ellie Payne","Cecelia Cooley","Evan Hansen","Branson Dyer","Mckenna Haley","Marcelo Dunn","Savanna Juarez","Danika Mooney","Demarcus Sanford","George Watkins","Dulce Brooks","Jennifer Peters","Larry Doyle","Landin Gonzalez","Jazmyn Molina","Sullivan Rubio","Davin Moody","Larissa Ross","Nataly Pham","Lindsey Garrett","Bo Cruz","Finn Lucero","Desiree Vazquez","Omar Rich","Josephine Navarro","Efrain Mueller","Arabella Delacruz","Jasmine Fernandez","Makenna Gibbs","Yoselin Burch","Kaylie Alvarez","Mina Neal","Devyn Dickson","Valeria Haas","Luna Calderon","Landon Cabrera","Cheyenne Stein","Jaylon Hartman","Rex Velazquez","Yamilet Underwood","Saniya Green","Matthias Hampton","Aisha Burke","Nola Olson","Antonio Acosta","Reina Williamson","Nora Bowers","Melody Mcfarland","Iyana Sellers","Gauge Dodson","Jasmine Barr","Lizbeth Adams","Tristian Liu","Janelle Santos","Larry Middleton","Charlie Greer","Madden Khan","Raul Orozco","Isis Cabrera","Titus Lane","Haylie Cohen","Jordyn Griffith","Ali Braun","Carleigh Manning","Nayeli Ballard","Lisa Hess","Jayla Weiss","Ashlyn Quinn","Iliana Maxwell","Aleena Bradford","Hector Boone","Deon Perez","Ana Flowers","Brianna Mcintyre","Rayna Lindsey","Davis Booth","Alyssa Mack","Frederick Moses","Bryant Santos","Kaleb Wells","Nikolai Mcneil","Nickolas Osborn","Arthur Mora","Luka Cabrera","Gunner Craig","Neveah Summers","Aubrie Kent","Jovanni Frank","Edwin Cisneros","Elijah Foley","Brenton Cabrera","Drew Beard","Aleena Galvan","Layton Poole","Londyn Craig","Jon Arellano","Mara Harper","Camren Li","Micaela Hayes","Silas Mccarthy","Jaylon Lucero","Noemi Krueger","Lina Mosley","Kenyon Dorsey","Dayana Bowman","Jaylin Li","Ronan Gaines","Norah Morris","Angelica Knapp","Lindsay Cortez","Shannon Fuller","Harry Haney","Kieran Chambers","Kolten Clarke","Averi Wang","Annabel Wise","Haley Pruitt","Trinity Mckenzie","Ellie Stout","Mekhi Atkins","Trinity Crawford","Brenda Luna","Rayna Mcdaniel","Kasey Lewis","Makaila Cooley","Osvaldo Casey","Layton Rivas","Avah Prince","Kael Pope","Giovanni Oconnor","Laura Molina","Reilly Waters","Bridger Beasley","Braelyn Flores","Finley Levine","Ace Avery","Mary Fry","Kai Ortega","Halle Patton","Garrett Coleman","Marissa Ayala","Carlo Medina","Paola Porter","Ronin Miles","Aisha Ware","Spencer Bean","Case Vargas","Alissa Cortez","Jamya Whitney","Braiden Bryant","Jamari Gould","Emmett Herrera","Judith Camacho","Amina Porter","Makaila House","Maggie Rice","Meredith Madden","Brenton Walker","Scarlett Buck","Maurice Pollard","Emilee Dunlap","Charles Mcdowell","Anahi Mccall","Wade Hale","Stephany Banks","Jeremy Norton","Jett Arroyo","Julien Galloway","Myles Benjamin","Janiyah Delgado","Alexandra Powell","Janessa Bishop","Quinten Fernandez","Jase Castaneda","Quinten Shepard","Ruby Brock","Desiree Riley","Harmony Villanueva","Raegan Meyers","Jayden Walls","Finn Berg","Hayden Vega","Jasiah Lucas","Deandre Palmer","Melody Mack","Heidi Skinner","Clarissa Wade","Marianna Burch","Danny Mcintyre","Keyla Morgan","Stephanie Brandt","Clarissa Reed","Essence Camacho","Matthias Turner","Titus Cook","Elliot Bennett","Aditya Giles","Jaiden Bryant","Zion Duran","Lila Cordova","Aryana Scott","Caitlyn Bender","Jean Bass","Hannah Barnett","Keegan Huber","Blaine Taylor","Axel Howe","Saniyah Pace","Paul Nolan","Deanna Weeks","Samson Nixon","Elias Berger","Ernest Cisneros","Annabel Sutton","Allison Dalton","Ronnie Webster","Reuben Shea","Mariah Hull","Meghan Dodson","Regina Giles","Abagail Vazquez","Mohammad Villa","Reynaldo Todd","Stephany Bell","Aubree Blanchard","Krish Henry","Kaiden Ortega","Rebekah Golden","Amira Underwood","Kenzie Graham","Jordan Wagner","Ian Rosales","Rose Brown","Esperanza Bryant","Gia Ross","Shayla Montgomery","Elena Sullivan","Imani Lucero","Konnor Raymond","Brent Foley","Dulce Moyer","Gideon Waller","Greyson Orozco","Duncan Mosley","Logan Lloyd","Kadin Hester","Dayanara Cardenas","Bennett Nash","Ulises Villanueva","Chandler Rivera","Peyton Wagner","Lucy Kennedy","Ally Levy","Kyle Frey","Dangelo Wheeler","Siena Sloan","Taryn Boyer","Quincy Snow","Paula Dunlap","Willow Nichols","Araceli Cisneros","Ariel Randall","Macey Braun","Lilah Fields","Brittany Bradley","Virginia Chan","Kristopher Mcdowell","Anabelle Atkinson","Jaida Mcdonald","Nicholas Dixon","August Lucas","Bianca Sullivan","Cole Morris","Diamond Poole","Soren Gay","Roberto Melendez","Johnny Dodson","Gary Cherry","Orion Sawyer","Taniyah Compton","Frida Medina","Addyson Stevenson","Esteban Foley","Dominick Estrada","Kamora Floyd","Elise Haley","Rudy Hogan","Talia Bennett","Carmen Lawson","Dana Hendricks","Alanna Conner","Diego Church","Jaylee Baldwin","Hugh Wade","Scarlett Goodman","Jaydan Hoffman","Conner Orozco","Nyla Mason","Ricardo Preston","Elisa Curtis","Derrick Tyler","William Salas","Kolton Hunt","Valentina Jennings","Marisa Henson","Ariel James","Madilynn Anthony",]
+def gen_network():
+    net = Network()
 
-network = Network()
+    r.shuffle(names)
+    for n in names:
+        net.add_new_user(n)
 
-for n in names:
-   network.add_new_user(n)
+    def connect_range(a, b, n):
+        for _ in range(0, n):
+            id1 = r.randint(a, b)
+            id2 = r.randint(a, b)
+            net.add_friend(id1, id2)
 
-for _ in range(0, len(names)*7):
-   id1 = r.randint(0, len(names)-1)
-   id2 = r.randint(0, len(names)-1)
-   network.add_friend(id1, id2)
+    def connect_user(id1, a, b, n):
+        for _ in range(0, n):
+            id2 = r.randint(a, b)
+            net.add_friend(id1, id2)
 
-for _ in range(0, len(names)//2):
-   id1 = r.randint(0, len(names)-1)
-   for _ in range(0, 5):
-      id2 = r.randint(0, len(names)-1)
-      network.add_friend(id1, id2)
+    # create 7 islands
+    n = math.ceil(len(names)/7)
+    for i in range(7):
+        a = i * n
+        b = min((i+1)*n-1, len(names)-1)
+        connect_range(a, b, r.randint(n*6, n*7))
 
-for _ in range(0, len(names)//10):
-   id1 = r.randint(0, len(names)-1)
-   for _ in range(0, 10):
-      id2 = r.randint(0, len(names)-1)
-      network.add_friend(id1, id2)
+        # with a few popular people each
+        for j in range(r.randint(n//200, n//100)):
+            id = r.randint(a, b)
+            connect_user(id, a, b, r.randint(n//20, n//5)) # popular in the island
+            connect_user(id, 0, len(names)-1, r.randint(2,5)) # and a couple connections outside
 
-for _ in range(0, len(names)//100):
-   id1 = r.randint(0, len(names)-1)
-   for _ in range(0, 50):
-      id2 = r.randint(0, len(names)-1)
-      network.add_friend(id1, id2)
+    # add a few connections across the whole network
+    for i in range(len(names)//100):
+        id = r.randint(0, len(names)-1)
+        connect_user(id, 0, len(names)-1, 1)
+    
+    return net
 
-for user in network.get_top_n_users(10):
-   print(user)
-print()
-for user in network.get_top_n_users(10, bottom=True):
-   print(user)
+diameter = 0
+while(diameter < 10):
+    network = gen_network()
+
+    total = network.get_total_users()
+    visited = set()
+    islands = 0
+    while len(visited) < network.get_total_users():
+        i = 0
+        while i in visited or not network.get_user_by_id(i):
+            i += 1
+            continue
+
+        distances = network.bfs_traverse(i, visit_fn=lambda u: visited.add(u.id))
+        islands += 1
+
+        d = sorted(distances.values(), reverse=True)[0]
+        if diameter < d: diameter = d
 
 
-# network.save_network_to_csv("people_big.csv")
+    # n_users = network.get_total_users()
+    # n_conns = network.get_total_connections()
+    # print(f"Total Users: {n_users}")
+    # print(f"Total Connections: {n_conns}")
+    # print(f"Average Connections Per User: {n_conns / n_users}")
+
+    # for user in network.get_top_n_users(5):
+    #     print(user)
+    # print()
+    # for user in network.get_top_n_users(5, bottom=True):
+    #     print(user)
+    # print()
+
+    # print(f"Graph diameter: {diameter}")
+    # conn = "Fully connected" if islands == 1 else "Empty (no connections)" if islands == total else f"Disconnected ({islands} islands)"
+    # print(f"Graph connectivity: {conn}")
+
+# network.save_network_to_csv("network.csv")
