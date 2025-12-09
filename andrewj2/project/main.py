@@ -1,6 +1,6 @@
-from SocialNetwork import User, UserMap
+from SocialNetwork import User, Network
 
-users = UserMap()
+network = Network()
 
 def find_path():
     print("Find connection path")
@@ -13,8 +13,15 @@ def mutual_friends():
 def friend_suggestions():
     print("Friend suggestions")
 def network_stats():
-    raise ValueError("test")
-    print("Network statistics")
+    n_users = network.get_total_users()
+    n_conns = network.get_total_connections()
+    mprint(f"Total Users: {n_users}")
+    mprint(f"Total Connections: {n_conns}")
+    mprint(f"Average Connections Per User: {n_conns / n_users}")
+def user_search():
+    term = input("Enter search term >> ").strip()
+    for u in network.search_users_by_name(term):
+        mprint(f"{str(u.id).zfill(4)}: {u.name} ({len(u.friends)} friends)")
 
 main_menu = {
     "x": ("Exit the program", None),
@@ -24,7 +31,11 @@ main_menu = {
     "4": ("Mutual friends", mutual_friends),
     "5": ("Friend suggestions", friend_suggestions),
     "6": ("Network statistics", network_stats),
+    "7": ("User search", user_search),
 }
+
+def mprint(x):
+    print(f"> {x}")
 
 def run_menu(menu: dict, title: str):
     menu_str = f"[{title.upper()}]"
@@ -44,20 +55,25 @@ def run_menu(menu: dict, title: str):
         elif opt in menu.keys():
             try:
                 menu[opt][1]()
-            except ValueError as err:
-                print(f"[Error encountered: {err}]")
-        else: print(f"[Invalid selection: {opt}]")
+            except Exception as e:
+                mprint(f"Error: {e}")
+        else: mprint(f"Invalid selection: {opt}")
 
 
 print("\n=== Social Network Analyzer ===\n")
 
-loaded, msg = users.load_network_from_csv("people.csv")
-
+loaded, msg = network.load_network_from_csv("network.csv")
 if loaded:
-    print(f"[Network load: {msg}]\n")
+    mprint(f"Network load: {msg}")
+    print()
+    network_stats()
+    print()
 else:
-    print(f"[Network load error: {msg}]")
-    print("\nExiting...")
+    mprint(f"Network load error: {msg}")
+    mprint("Exiting...")
     quit()
+
+# for user in network.get_top_n_users(10):
+#     print(user)
 
 run_menu(main_menu, "main menu")

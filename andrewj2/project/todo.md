@@ -1,0 +1,14 @@
+- ~~load network~~
+- connection analysis
+   - find degree of separation between any two users
+   - find mutual friends between two users
+   - find all friends within N degrees
+- network statistics
+  - ~~most connected users (by number of friends)~~
+  - ~~average connections per user~~
+  - network diameter (longest shortest path)
+- most/least connected users
+- friend suggestions
+   - find connection path
+   - suggest new friends (friends-of-friends not already connected)
+   - rank suggestions by mutual friends
