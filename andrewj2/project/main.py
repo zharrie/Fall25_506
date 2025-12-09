@@ -1,47 +1,6 @@
-import sys
-from SocialNetwork import User, Network
-
-# ============================
-#         MENU LOGIC
-# ----------------------------
-
-def mprint(x):
-    print(f"> {x}")
-
-def mquit():
-    mprint("Exiting...")
-    quit()
-
-def minput(s):
-    return input(f"{s}>> ").strip()
-
-def run_menu(menu: dict, name: str):
-    menu_str = f"[{name.upper()} MENU]"
-    menu_str += f"\n  [x] {menu["x"][0]}" if "x" in menu.keys() else f"\n  [x] Exit this menu"
-    menu_str += f"\n  [m] {menu["m"][0]}" if "m" in menu.keys() else f"\n  [m] Print this menu again"
-    for k,v in menu.items():
-        if k in ["x","m"]: continue
-        menu_str += f"\n  [{k}] {v[0]}"
-
-    print(menu_str)
-
-    while True:
-        opt = input(">> ").strip().lower()
-        if not opt: continue
-        elif opt == 'xx': mquit() # exit the program
-        elif opt == 'x': break # exit menu loop
-        elif opt == 'm': print(menu_str)
-        elif opt in menu.keys():
-            if type(menu[opt][1]) is tuple:
-                submenu = menu[opt][1]
-                run_menu(submenu[0], submenu[1])
-                print(menu_str)
-            else:
-                try: menu[opt][1]()
-                except Exception as e:
-                    mprint(f"Error: {e}")
-        else: mprint(f"Invalid selection: {opt}")
-
+from sys import argv
+from Menu import *
+from SocialNetwork import *
 
 # ============================
 #        NETWORK LOGIC
@@ -116,35 +75,31 @@ def least_connected():
 #         MENU CONFIG
 # ----------------------------
 
-user_menu = {
-    "1": ("Search users", user_search),
-    "2": ("Select user", select_user),
-    "3": ("Display current user", display_cur_user),
-    "4": ("Connection path", todo),
-    "5": ("Friends within N degrees", todo),
-    "6": ("Mutual friends", todo),
-    "7": ("Friend suggestions", todo),
-}
-
-stats_menu = {
-    "1": ("Graph statistics", graph_stats),
-    "2": ("User statistics", user_stats),
-    "3": ("Most-connected users", most_connected),
-    "4": ("Least-connected users", least_connected),
-}
-
-main_menu = {
-    "x": ("Exit the program", None),
-    "1": ("User menu", (user_menu, "user")),
-    "2": ("Statistics menu", (stats_menu, "stats")),
-}
+main_menu = [
+    ("x", "Exit the program", None),
+    ("n", "User menu", ("user", [
+        ("n", "Search users", user_search),
+        ("n", "Select user", select_user),
+        ("n", "Display current user", display_cur_user),
+        ("n", "Connection path", todo),
+        ("n", "Friends within N degrees", todo),
+        ("n", "Mutual friends", todo),
+        ("n", "Friend suggestions", todo),
+    ])),
+    ("n", "Statistics menu", ("stats", [
+        ("n", "Graph statistics", graph_stats),
+        ("n", "User statistics", user_stats),
+        ("n", "Most-connected users", most_connected),
+        ("n", "Least-connected users", least_connected),
+    ])),
+]
 
 
 # ============================
 #        RUN PROGRAM
 # ----------------------------
 
-if len(sys.argv) < 2:
+if len(argv) < 2:
     print("This program reads a social network graph stored in")
     print("a CSV file and provides tools to analyze the data\n")
     print(f"Usage: python3 {sys.argv[0]} <CSV-PATH>")
@@ -152,7 +107,7 @@ if len(sys.argv) < 2:
 
 print("\n=== Social Network Analyzer ===\n")
 
-loaded, msg = network.load_network_from_csv(sys.argv[1])
+loaded, msg = network.load_network_from_csv(argv[1])
 if loaded:
     mprint(f"Network load: {msg}")
     print()
@@ -160,5 +115,5 @@ else:
     mprint(f"Network load error: {msg}")
     mquit()
 
-run_menu(main_menu, "main")
+run_menu("main", main_menu)
 mquit()
