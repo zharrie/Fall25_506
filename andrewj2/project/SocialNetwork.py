@@ -15,7 +15,10 @@ class Network:
         self.__next_id = 0
     
     def __str__(self):
-        return "\n".join(map(lambda u: str(u), self.__map.values()))
+        return f"<Network len(__map)={len(self.__map)}>"
+        
+    def get_user_list(self):
+        return list(self.__map.values())
 
     def add_new_user(self, name):
         id = self.__next_id

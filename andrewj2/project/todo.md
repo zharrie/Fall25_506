@@ -7,8 +7,9 @@
   - ~~most connected users (by number of friends)~~
   - ~~average connections per user~~
   - network diameter (longest shortest path)
-- most/least connected users
+- ~~most/least connected users~~
 - friend suggestions
    - find connection path
    - suggest new friends (friends-of-friends not already connected)
    - rank suggestions by mutual friends
+- ~~user search~~
