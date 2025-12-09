@@ -1,85 +1,63 @@
-class User:
-    def __init__(self, id, name):
-        self.id = id
-        self.name = name
-        self.friend_ids = []
-    
-    def __str__(self):
-        return f"[{self.id}: {self.name}, {len(self.friend_ids)} friends]"
-
-class UserMap:
-    def __init__(self):
-        self.__map = {}
-        self.__next_id = 0
-    
-    def __str__(self):
-        return "\n".join(map(lambda u: str(u), self.__map.values()))
-
-    def add_new_user(self, name):
-        id = self.__next_id
-        self.__next_id += 1
-        self.__map[id] = User(id, name)
-    
-    def overwrite_user(self, user):
-        self.__map[user.id] = user
-        if self.__next_id < user.id:
-            self.__next_id = user.id + 1
-
-    def get_user_by_id(self, id):
-        return self.__map.get(id)
-
-class N:
-    def __init__(self):
-        self.n = 0
-    
-    def pp(self):
-        r = self.n
-        self.n += 1
-        return r
-
-def menu():
-    n = N()
-    menu_str = f"""[MAIN MENU]
-    {n.pp()}. Print this menu again
-    {n.pp()}. Find connection path
-    {n.pp()}. Friends within N degrees
-    {n.pp()}. Most connected users
-    {n.pp()}. Mutual friends
-    {n.pp()}. Friend suggestions
-    {n.pp()}. Network statistics
-    {n.pp()}. Exit
-"""
-    print(menu_str)
-
-    while True:
-        choice = input("Select: ")
-        c = -1
-        
-        try:
-            c = int(choice)
-        except ValueError:
-            pass
-
-        if c < 0 or c > n.n-1:
-            print("Invalid selection: " + choice)
-            continue
-
-        if c == 0:
-            print(menu_str)
-        if c == 6:
-            break
-
-        print()
-
+from SocialNetwork import User, UserMap
 
 users = UserMap()
 
-import csv
-with open('people.csv', mode ='r') as file:
-    people = csv.reader(file)
-    for p in people:
-        users.overwrite_user(User(int(p[0]), p[1]))
+def find_path():
+    print("Find connection path")
+def n_degrees():
+    print("Friends within N degrees")
+def most_connected():
+    print("Most connected users")
+def mutual_friends():
+    print("Mutual friends")
+def friend_suggestions():
+    print("Friend suggestions")
+def network_stats():
+    raise ValueError("test")
+    print("Network statistics")
 
-print(users)
+main_menu = {
+    "x": ("Exit the program", None),
+    "1": ("Find connection path", find_path),
+    "2": ("Friends within N degrees", n_degrees),
+    "3": ("Most connected users", most_connected),
+    "4": ("Mutual friends", mutual_friends),
+    "5": ("Friend suggestions", friend_suggestions),
+    "6": ("Network statistics", network_stats),
+}
 
-# menu()
+def run_menu(menu: dict, title: str):
+    menu_str = f"[{title.upper()}]"
+    menu_str += f"\n  [x] {menu["x"][0]}" if "x" in menu.keys() else f"\n  [x] Exit this menu"
+    menu_str += f"\n  [m] {menu["m"][0]}" if "m" in menu.keys() else f"\n  [m] Print this menu again"
+    for k,v in menu.items():
+        if k in ["x","m"]: continue
+        menu_str += f"\n  [{k}] {v[0]}"
+
+    print(menu_str)
+
+    while True:
+        opt = input(">> ").strip().lower()
+        if not opt: continue
+        elif opt == 'x': break # exit menu loop
+        elif opt == 'm': print(menu_str)
+        elif opt in menu.keys():
+            try:
+                menu[opt][1]()
+            except ValueError as err:
+                print(f"[Error encountered: {err}]")
+        else: print(f"[Invalid selection: {opt}]")
+
+
+print("\n=== Social Network Analyzer ===\n")
+
+loaded, msg = users.load_network_from_csv("people.csv")
+
+if loaded:
+    print(f"[Network load: {msg}]\n")
+else:
+    print(f"[Network load error: {msg}]")
+    print("\nExiting...")
+    quit()
+
+run_menu(main_menu, "main menu")
