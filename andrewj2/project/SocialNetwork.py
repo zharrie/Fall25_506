@@ -9,6 +9,9 @@ class User:
     def __str__(self):
         return f"<User id={self.id}, name={self.name}, len(friends)={len(self.friends)}>"
 
+    def copy(self):
+        return User(self.id, self.name, set(self.friends))
+
 class Network:
     def __init__(self):
         self.__map = {}
@@ -35,6 +38,7 @@ class Network:
         return self.__map.get(id)
 
     def add_friend(self, id1, id2):
+        if id1 == id2: return
         u1 = self.get_user_by_id(id1)
         u2 = self.get_user_by_id(id2)
         if not u1 or not u2: return # error?
@@ -77,3 +81,31 @@ class Network:
 
     def search_users_by_name(self, search):
         return list(filter(lambda u: search.lower() in u.name.lower(), self.__map.values()))
+
+    def bfs_traverse(self, start_id, visit_fn=None, end_id=None):
+        frontier = []
+        discovered = set()
+        distances = {}
+
+        frontier.append(start_id)
+        discovered.add(start_id)
+        distances[start_id] = 0
+
+        while len(frontier) > 0:
+            id = frontier.pop()
+            user = self.get_user_by_id(id)
+            if not user:
+                continue
+
+            if visit_fn: visit_fn(user.copy())
+
+            if id == end_id: break
+
+            for fid in user.friends:
+                if fid not in discovered:
+                    frontier.insert(0,fid)
+                    discovered.add(fid)
+                    distances[fid] = distances[id]+1
+        
+        return distances
+

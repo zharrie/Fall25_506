@@ -89,6 +89,19 @@ def display_cur_user():
 
 # === Stats Menu ===
 
+def graph_stats():
+    distances = network.bfs_traverse(0)
+    mprint(f"Graph diameter: {sorted(distances.values(), reverse=True)[0]}")
+    mprint(f"Graph connectivity: {"Connected" if len(distances) == network.get_total_users() else "Disconnected"}")
+
+
+def user_stats():
+    n_users = network.get_total_users()
+    n_conns = network.get_total_connections()
+    mprint(f"Total Users: {n_users}")
+    mprint(f"Total Connections: {n_conns}")
+    mprint(f"Average Connections Per User: {n_conns / n_users}")
+
 def most_connected(least=False):
     n = int(minput("Enter how many"))
     users = network.get_top_n_users(n, least)
@@ -97,13 +110,6 @@ def most_connected(least=False):
 
 def least_connected():
     most_connected(least=True)
-
-def network_stats():
-    n_users = network.get_total_users()
-    n_conns = network.get_total_connections()
-    mprint(f"Total Users: {n_users}")
-    mprint(f"Total Connections: {n_conns}")
-    mprint(f"Average Connections Per User: {n_conns / n_users}")
 
 
 # ============================
@@ -121,9 +127,10 @@ user_menu = {
 }
 
 stats_menu = {
-    "1": ("Network statistics", network_stats),
-    "2": ("Most-connected users", most_connected),
-    "3": ("Least-connected users", least_connected),
+    "1": ("Graph statistics", graph_stats),
+    "2": ("User statistics", user_stats),
+    "3": ("Most-connected users", most_connected),
+    "4": ("Least-connected users", least_connected),
 }
 
 main_menu = {
