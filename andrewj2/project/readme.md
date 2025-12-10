@@ -31,5 +31,3 @@ Author: Jasper Andrew
       - space complexity analysis: memory usage for key data structures
       - algorithm comparison: compare at least 2 different approaches for a key operation
       - trade-offs: discuss design decisions and why you made them
-
-

@@ -77,6 +77,32 @@ def users_n_degrees():
                 break
             i += 1
 
+def users_n_degrees1():
+    u = runtime["user"]
+    if not u:
+        mprint("No user selected")
+        return
+    
+    n = int(minput("Enter value for N"))
+    
+    v_list = network.get_all_ids()
+    d_list = network.build_distance_matrix()[v_list.index(u.id)]
+    mprint(f"Selected: {u.name}")
+    for deg in range(1,n+1):
+        deg_u_list = []
+        for i in range(len(d_list)):
+            if d_list[i] == deg:
+                deg_u_list.append(network.get_user_by_id(v_list[i]))
+        deg_u_list.sort(key=lambda u: len(u.friends), reverse=True)
+        mprint(f"{ordinal(deg)}-degree connections ({len(deg_u_list)})")
+        i = 1
+        for deg_u in deg_u_list:
+            mprint(f"\t{deg_u.name} ({len(deg_u.friends)})")
+            if i >= 5:
+                mprint(f"\t...{len(deg_u_list)-i} more...")
+                break
+            i += 1
+
 
 # === Stats Menu ===
 
@@ -131,6 +157,7 @@ main_menu = [
         ("n", "Display current user", display_cur_user),
         ("n", "Connection path", todo),
         ("n", "Users within N degrees", users_n_degrees),
+        ("n", "Users within N degrees1", users_n_degrees1),
         ("n", "Mutual friends", todo),
         ("n", "Friend suggestions", todo),
     ])),
@@ -162,6 +189,14 @@ if loaded:
 else:
     mprint(f"Network load error: {msg}")
     mquit()
+
+# print((network.get_all_ids()))
+# print(len(network.get_all_connections()))
+
+# for r in network.build_distance_matrix():
+#     print(str(r).replace("inf", "-"))
+
+# print(network.get_path(11, 8))
 
 run_menu("main", main_menu)
 mquit()

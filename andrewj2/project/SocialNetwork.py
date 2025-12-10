@@ -17,12 +17,24 @@ class Network:
     def __init__(self):
         self.__map = {}
         self.__next_id = 0
+        self.__d_matrix = None
     
     def __str__(self):
         return f"<Network len(__map)={len(self.__map)}>"
         
-    def get_user_list(self):
-        return list(self.__map.values())
+    def get_all_users(self):
+        return sorted(self.__map.values(), key=lambda u: u.id)
+
+    def get_all_ids(self):
+        return list(map(lambda u: u.id, self.get_all_users()))
+    
+    def get_all_connections(self):
+        connections = set()
+        for u in self.get_all_users():
+            for fid in u.friends:
+                connections.add((u.id, fid))
+        
+        return connections
 
     def add_new_user(self, name):
         id = self.__next_id
@@ -134,3 +146,54 @@ class Network:
                 
                 for fid in user.friends:
                     v_stack.append(fid)
+
+    def build_distance_matrix(self):
+        if self.__d_matrix: return self.__d_matrix
+
+        v_list = self.get_all_ids()
+        n = len(v_list)
+        e_list = self.get_all_connections()
+        
+        d_matrix = []
+        for i in range(0, n):
+            d_matrix.append([math.inf] * n)
+            d_matrix[i][i] = 0
+        
+        for e in e_list:
+            d_matrix[v_list.index(e[0])][v_list.index(e[1])] = 1
+        
+        for i in range(0, n):
+            for to in range(0, n):
+                for fm in range(0, n):
+                    new_len = d_matrix[fm][i] + d_matrix[i][to]
+                    if new_len < d_matrix[fm][to]:
+                        d_matrix[fm][to] = new_len
+
+        self.__d_matrix = d_matrix
+        return d_matrix
+
+    def get_path(self, start_id, end_id):
+        d_matrix = self.build_distance_matrix()
+
+        v_list = self.get_all_ids()
+        e_list = self.get_all_connections()
+        start = v_list.index(start_id)
+        path = []
+
+        cur = v_list.index(end_id)
+        while cur != start:
+            cur_e_list = set(filter(lambda e: e[1] == v_list[cur], e_list))
+            found_next = False
+            for e in cur_e_list:
+                expect = d_matrix[start][cur] - 1
+                actual = d_matrix[start][v_list.index(e[0])]
+                if expect == actual:
+                    cur = v_list.index(e[0])
+                    path = [e] + path
+                    found_next = True
+                    break
+            if not found_next:
+                return None
+        
+        return path
+
