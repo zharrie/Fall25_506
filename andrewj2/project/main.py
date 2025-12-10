@@ -14,6 +14,14 @@ runtime = {
 def fmt_user(u):
     return f"{str(u.id).zfill(4)}: {u.name} ({len(u.friends)} friends)"
 
+# credit: https://stackoverflow.com/questions/9647202/ordinal-numbers-replacement
+def ordinal(n: int):
+    if 11 <= (n % 100) <= 13:
+        suffix = 'th'
+    else:
+        suffix = ['th', 'st', 'nd', 'rd', 'th'][min(n % 10, 4)]
+    return str(n) + suffix
+
 def todo():
     mprint("TODO")
 
@@ -44,6 +52,30 @@ def display_cur_user():
         mprint("No user selected")
     else:
         mprint(f"Current user: {u.name} ({u.id}), {len(u.friends)} friends")
+
+def users_n_degrees():
+    u = runtime["user"]
+    if not u:
+        mprint("No user selected")
+        return
+    
+    n = int(minput("Enter value for N"))
+    
+    users = sorted(network.bfs_traverse(u.id, end_dist=n).items(), key=lambda it: it[1])
+    mprint(f"Selected: {u.name}")
+    for deg in range(1,n+1):
+        deg_ids = sorted(list(map(lambda it: it[0], filter(lambda it: it[1] == deg, users))),
+            key=lambda it: len(network.get_user_by_id(it).friends), reverse=True)
+        mprint(f"{ordinal(deg)}-degree connections ({len(deg_ids)})")
+        i = 1
+        for id in deg_ids:
+            c = network.get_user_by_id(id)
+            if not c: continue
+            mprint(f"\t{c.name} ({len(c.friends)})")
+            if i >= 5:
+                mprint(f"\t...{len(deg_ids)-i} more...")
+                break
+            i += 1
 
 
 # === Stats Menu ===
@@ -98,7 +130,7 @@ main_menu = [
         ("n", "Select user", select_user),
         ("n", "Display current user", display_cur_user),
         ("n", "Connection path", todo),
-        ("n", "Friends within N degrees", todo),
+        ("n", "Users within N degrees", users_n_degrees),
         ("n", "Mutual friends", todo),
         ("n", "Friend suggestions", todo),
     ])),

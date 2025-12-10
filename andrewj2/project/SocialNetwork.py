@@ -1,3 +1,4 @@
+import math
 import csv
 
 class User:
@@ -82,8 +83,9 @@ class Network:
     def search_users_by_name(self, search):
         return list(filter(lambda u: search.lower() in u.name.lower(), self.__map.values()))
 
-    def bfs_traverse(self, start_id, visit_fn=None, end_id=None):
+    def bfs_traverse(self, start_id, visit_fn=None, end_id=None, end_dist=math.inf):
         frontier = []
+        next_frontier = [] # so that we can keep track of distance
         discovered = set()
         distances = {}
 
@@ -91,7 +93,8 @@ class Network:
         discovered.add(start_id)
         distances[start_id] = 0
 
-        while len(frontier) > 0:
+        dist = 0
+        while len(frontier) > 0 and dist <= end_dist:
             id = frontier.pop()
             user = self.get_user_by_id(id)
             if not user: continue # error?
@@ -101,10 +104,18 @@ class Network:
 
             for fid in user.friends:
                 if fid not in discovered:
-                    frontier.insert(0,fid)
+                    next_frontier.insert(0,fid)
                     discovered.add(fid)
                     distances[fid] = distances[id]+1
+            
+            if len(frontier) == 0: # move to next distance frontier
+                frontier = next_frontier
+                next_frontier = []
+                dist += 1
         
+        if end_dist:
+            return dict((k,v) for k,v in distances.items() if v <= end_dist)
+
         return distances
 
     def dfs_traverse(self, start_id, visit_fn=None, end_id=None):
