@@ -12,12 +12,12 @@ Often each edge has a weight:
 With such a weighted graph, there are several natural questions:
 - Single‑source shortest path:
     If I pick one starting vertex, what is the shortest path from that start to every other vertex?
-- All‑pairs shortest path:
-    What is the shortest path between every pair of vertices in the graph?
 - Minimum spanning tree:
     How can I connect all vertices with edges so that:
-    - Everything is connected (you can get from any vertex to any other),
-    - But the total cost (sum of weights) of all chosen edges is as small as possible?
+    - Everything is connected (you can get from any vertex to any other), but the total cost (sum of weights) of all chosen edges is as small as possible?
+- All‑pairs shortest path:
+    What is the shortest path between every pair of vertices in the graph?
+
 
 Tonight we are going to see algorithms that solve each of these problems:
 - Dijkstra and Bellman–Ford solve the single‑source shortest path problem.
@@ -27,7 +27,7 @@ Tonight we are going to see algorithms that solve each of these problems:
 As we go, pay attention to:
 - What problem each algorithm solves,
 - What information each algorithm stores (distance, predecessor, sets, or matrix),
-- And what limitations it has (especially regarding negative edge weights).”
+- And what limitations it has (especially regarding negative edge weights).
 """
 
 # Dijkstra’s shortest path algorithm
@@ -47,7 +47,7 @@ The algorithm behaves like this:
 
 A key idea:
 Because all edge weights are non‑negative, once a vertex is chosen as the current smallest‑distance vertex, its distance cannot be improved later. 
-That makes Dijkstra’s algorithm correct under non‑negative weights, and also efficient.”
+That makes Dijkstra’s algorithm correct under non‑negative weights, and also efficient.
 """
 #The data we keep: distance and predecessor
 """
@@ -58,7 +58,7 @@ To make this work in code, for each vertex we store:
 At the beginning:
 - Every vertex has distance = infinity and pred_vertex = None.
 - Only the start vertex has distance = 0 (it’s 0 away from itself).
-- We also keep a set or list of unvisited vertices: vertices we have not finalized yet.”
+- We also keep a set or list of unvisited vertices: vertices we have not finalized yet.
 
 
 Walking through the algorithm (step by step)
@@ -200,8 +200,8 @@ For every vertex currentV in the graph:
 Set currentV.distance = infinity
 Set currentV.pred_vertex = None
 Set startV.distance = 0.
-Main relaxation loop (V − 1 times)
 
+Main relaxation loop (V − 1 times)
 Repeat the following V − 1 times:
 For each vertex currentV in the graph:
 For each adjacent vertex adjV (meaning there is an edge from currentV to adjV):
@@ -271,15 +271,14 @@ We usually care about one start and one end. We want the cheapest route between 
 
 Minimum spanning tree (MST): We have an undirected, connected, weighted graph.
 We want to choose some edges so that:
+- All vertices are connected,
+- There are no cycles (it’s a tree),
+- The total sum of the chosen edges’ weights is as small as possible.
 
-All vertices are connected,
-There are no cycles (it’s a tree),
-The total sum of the chosen edges’ weights is as small as possible.
 Think of designing a network:
-
-You want to connect all cities with cables or roads.
-You don’t care about the exact shortest route between every pair; you only care that every city is reachable and that the total construction cost is minimal.
-That’s what an MST gives you.”
+- You want to connect all cities with cables or roads.
+- You don’t care about the exact shortest route between every pair; you only care that every city is reachable and that the total construction cost is minimal.
+That’s what an MST gives you.
 
 Intuition behind Kruskal’s algorithm
 Kruskal’s algorithm builds the MST in a greedy way:
@@ -352,6 +351,7 @@ If yes: adding this edge will connect two separate components, so we accept it a
 If no: the edge would create a cycle inside an existing component, so we skip it.
 At the end, result_list is the set of edges forming the minimum spanning tree.
 """
+
 # All‑pairs shortest path: Floyd–Warshall
 """
 The all‑pairs view and the distance matrix
@@ -365,8 +365,7 @@ A natural way to represent this is with a matrix:
 - Row i, column j stores the shortest distance from vertex i to vertex j.
 
 The Floyd–Warshall algorithm computes this entire matrix. It can handle:
--negative edge weights,
-but not negative cycles (if there is a negative cycle, some shortest paths don’t exist because you can keep looping and making the path cheaper).”
+-negative edge weights, but not negative cycles (if there is a negative cycle, some shortest paths don’t exist because you can keep looping and making the path cheaper).
 
 Initialization of the matrix
 Before we run the main algorithm, we build the initial dist_matrix:
@@ -380,7 +379,8 @@ The core idea is:
 Gradually allow paths that are allowed to go through more and more possible intermediate vertices, and update the distances when we find shorter ones.
 We consider vertices in some order: 0, 1, 2, …, V−1. For each vertex k in that order, we ask:
 
-‘Suppose we are allowed to use vertex k as an intermediate stop on the path from i to j. Does going i -> k -> j give us a shorter distance than our current dist_matrix[i][j]?’
+‘Suppose we are allowed to use vertex k as an intermediate stop on the path from i to j. 
+Does going i -> k -> j give us a shorter distance than our current dist_matrix[i][j]?’
 
 For each triple of indices (i, j, k):
 currentLength = dist_matrix[i][j] (current best known distance from i to j),
