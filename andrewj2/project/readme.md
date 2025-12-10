@@ -1,8 +1,13 @@
+# [CSIT506 Fall '25] Final Project - Social Network Analyzer
+
+Author: Jasper Andrew
+
+## to-do
 - ~~load network~~
 - connection analysis
    - find degree of separation between any two users
    - find mutual friends between two users
-   - find all friends within N degrees
+   - ~~find all friends within N degrees~~
 - ~~network statistics~~
   - ~~most connected users (by number of friends)~~
   - ~~average connections per user~~
@@ -26,3 +31,5 @@
       - space complexity analysis: memory usage for key data structures
       - algorithm comparison: compare at least 2 different approaches for a key operation
       - trade-offs: discuss design decisions and why you made them
+
+
