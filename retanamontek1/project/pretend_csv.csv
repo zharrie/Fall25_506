@@ -1,0 +1,31 @@
+name,age,gender,main language,other languages,place where they grew up,do they know other participants (names),do they want to participate in round 2
+Sofia,25,female,spanish,english,colombia,daniel,no
+Daichi,18,male,english,japanese,united states,alejandro,yes
+Kris,35,male,spanish,,costa rica,,yes
+Genta,24,male,japanese,mandarin,tokyo,kyoko,no
+Sebastian,28,male,spanish,english,costa rica,leysie,yes
+Sonia,50,female,spanish,,costa rica,gustavo,no
+Kyoko,60,female,japanese,spanish,Okinawa,genta,yes
+Subaru,27,male,japanese,,tokyo,ryoto,yes
+Nube,32,female,spanish,,equador,,yes
+Gloria,40,female,spanish,,chile,,no
+Ryoto,26,male,japanese,english,tokyo,subaru,no
+Carlos,21,male,spanish,,colombia,,yes
+Rocio,29,female,spanish,"english, portuguese",mexico,,no
+Akira,31,male,Japanese,korean,Osaka,Hideyoshi,yes
+Elena,20,female,Spanish,,mexico,,yes
+Shoji,32,male,japanese,english,tokyo,,no
+Yoshiki,23,male,japanese,,tokyo,hideyoshi,yes
+Hideyoshi,22,male,japanese,korean,osaka,"akira, yoshiki",no
+Ana,34,female,Spanish,,mexico,,yes
+Mateo,21,male,Spanish,english,el salvador,,yes
+Kaoru,25,female,Japanese,english,hokkaido,ryoto,no
+Alejandro,19,male,english,spanish,united states,daichi,no
+Keiko,30,female,Japanese,,tokyo,,yes
+Daniel,29,male,Spanish,,colombia,sofia,no
+Gustavo,38,male,Spanish,english,costa rica,sonia,yes
+Yuika,24,female,Japanese,mandarin,chiba,,yes
+Leysie,31,female,Spanish,,costa rica,"sonia, sebastian",yes
+Yuta,27,male,Japanese,,tokyo,,no
+Masashi,33,male,Japanese,english,kyoto,,yes
+Yurika,25,female,Japanese,,tokyo,,yes
