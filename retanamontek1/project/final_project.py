@@ -1,65 +1,86 @@
 '''
 Description
-Assuming an already made CSV of initial participants in a study, this tool filters through them for people who meet the requirements to be included. 
-It also creates a new subset of people who checked off that they wanted to be included in a future section of the study. Through that subset of people, 
-annotators are allocated to files gathered in the first part of the study.
+The program will take in a csv file of participants who want to be in a speech data collection project.
+The participants will be filtered based on certain attributes (language, nativeness, place they grew up, etc).
+Then, the participants will be prioritized based on certain attributes (place they grew up, monolingualism, etc).
+Using heaps, the participants will be sorted by priority.
+Then, using graphs, the participants will be checked to see who knows who.
+Using BFS, the participants will be allocated audio files to annotate, making sure that no participant annotates their own file or the file of someone they know.
+
+The output will be a list of participants and the audio files they have been allocated to annotate.
 
 Objectives
-- Filter for certain attributes
-- Use graphs for checking which participants know each 
-
-Uhh use graphs, dictionaries, lists, queues(??)
-figure out if you should use BFS or DFS
+- Filter participants to check that they meet the criteria for the project
+- Prioritize participants based on certain attributes using a max heap
+- Create a graph to represent the relationships between participants
+- Use BFS to traverse the graph and find participants who know each other, then allocate audio files for them to annotate.
 '''
 
-# Create a list of the participants with priority being first followed by their name
-def heap_list(df):
+# Create a list of the participants with priority being first followed by their name.
+# This is what will be read into the heap.
+def heap_list(lst):
   to_heap = []
 
-  for person in df:
+  for person in lst:
     to_heap.append((person['priority'], person['name']))
 
   return to_heap
 
 
+# This creates the max heap. It's not a perfect binary max heap, the heap_sort function will do that.
+# This is called within the heap_sort function.
 def create_max_heap(index, heap, n):
-    
+    # index is the index of the current node
     while True:
+      
       left_child = 2 * index + 1
       right_child = 2 * index + 2
       largest = index
-  
+
+      # Compare with left child
+      # If left child is larger, update largest  
       if left_child < n and heap[left_child][0] < heap[largest][0]:
             largest = left_child
 
+      # Compare with right child
+      # If right child is larger, update largest
       if right_child < n and heap[right_child][0] < heap[largest][0]:
             largest = right_child
 
       if largest == index:
         break
 
+      # Swap
       heap[index], heap[largest] = heap[largest], heap[index]
 
       index = largest
 
-
+# This used the create_max_heap function to create a perfect binary max heap.
 def heap_sort(to_heap):
-    n = len(to_heap) // 2 - 1
-    while n >= 0:
-        create_max_heap(n, to_heap, len(to_heap))
-        n = n - 1
-                
+
+  n = len(to_heap) // 2 - 1
+
+  # start from the last non-leaf node
+  while n >= 0:
+
+    # call max heapify
+    create_max_heap(n, to_heap, len(to_heap))
+    n = n - 1
+    
+  # One by one extract elements from heap
     n = len(to_heap) - 1
     while n > 0:
-        # Swap numbers[0] and numbers[i]
-        temp = to_heap[0]
-        to_heap[0] = to_heap[n]
-        to_heap[n] = temp
+      # Swap numbers
+      temp = to_heap[0]
+      to_heap[0] = to_heap[n]
+      to_heap[n] = temp
 
-        create_max_heap(0, to_heap, n)
-        n = n - 1
+      # call max heapify again on the reduced heap
+      create_max_heap(0, to_heap, n)
+      n = n - 1
 
 
+# Below are various classes and methods used to create the graph.
 class Vertex:
   def __init__(self, vertex_label):
         self.label = vertex_label
@@ -94,6 +115,7 @@ class Graph:
       vertices.append(vertex)
     return vertices
 
+  # Not currently used, but I have it here if needed
   def get_vertex(self, vertex_label):
     for v in self.from_edges:
       if v.label == vertex_label:
@@ -117,6 +139,7 @@ class Graph:
         return True
     return False
 
+  # Since the graph is undirected, edges are added for both directions
   def add_edge(self, vertexA, vertexB):
     if self.has_edge(vertexA, vertexB):
       return None
@@ -129,6 +152,7 @@ class Graph:
     self.from_edges[vertexB].append(new_edge)
     self.to_edges[vertexA].append(new_edge)
 
+  # Create adjacency list from the graph
   def adjacency_list(self):
     adj_lst = {}
 
@@ -144,66 +168,8 @@ class Graph:
 
     return adj_lst
 
-def create_graph(lst):
-
-  connections = Graph()
-
-  for person in lst:
-    name = person['name']
-    connections.add_vertex(name)
-
-  for person in lst:
-    from_vertex = connections.get_vertex(person['name'])
-    friends_lst = person['do they know other participants (names)'].strip()
-    friend_lst = friends_lst.split(",")
-
-    friends = []
-    for people in friend_lst:
-      friends.append(people.strip())
-
-    for friend in friends:
-      to_vertex = connections.get_vertex(friend)
-      if to_vertex is None:
-        continue
-      connections.add_edge(from_vertex, to_vertex)
-
-  adj_list = connections.adjacency_list()
-
-  return adj_list
-
-
-def allocate(total_speakers, annotators, data):
-  annotated_files = {audio[1]: [] for audio in data}
-  allocated = {}
-
-  for person in annotators:
-    person['annotating'] = []
-    allocated[person['name']] = []
-
-    assigned = 0
-    
-    for audio in data:
-        if assigned >= 2:
-          break
-        audio_name = audio[1]
-
-        if len(annotated_files[audio_name]) >= 2:
-          continue
-
-        adj_lst = create_graph(total_speakers)
-        if audio_name in BFS(adj_lst, person['name']):
-          continue
-
-        if audio_name in person['annotating']:
-          continue
-
-        person['annotating'].append(audio)
-        allocated[person['name']].append(audio_name)
-        annotated_files[audio_name].append(person['name'])
-        assigned += 1
-
-  return allocated
-
+# BFS function goes through the graph and finds all vertices connected to the start vertex.
+# In application, the start vertex is the annotator, and the discovered vertices are the people they know.
 from collections import deque
 def BFS(adj_list, start):
   discovered = set()
@@ -220,33 +186,127 @@ def BFS(adj_list, start):
         discovered.add(neighbor)
         q.append(neighbor)
 
-  return discovered    
+  return discovered
+
+# This function takes in a list of participants, and creates a graph based on who knows who.
+# The specific lists this uses are the basic lists of all participants for each language. So jpn_speakers and spn_speakers.
+def create_graph(lst):
+
+  # Create graph
+  connections = Graph()
+
+  # Add vertices
+  for person in lst:
+    name = person['name']
+    connections.add_vertex(name)
+
+  # Add edges
+  # Some people listed multiple names, but python will read it as a string, so it has to be split
+  for person in lst:
+    annotator_vertex = connections.get_vertex(person['name'])
+    friends_lst = person['do they know other participants (names)'].strip()
+    friend_lst = friends_lst.split(",")
+
+    # Put friends into a clean list, stripping whitespace to be sure there are no errors
+    friends = []
+    for people in friend_lst:
+      friends.append(people.strip())
+
+    # Loop through friends and add edges
+    for friend in friends:
+      friend_vertex = connections.get_vertex(friend)
+      if friend_vertex is None:
+        continue
+      connections.add_edge(annotator_vertex, friend_vertex)
+
+  # Create adjacency list
+  adj_list = connections.adjacency_list()
+
+  # The only thing we really need from here is the adjacency list, so that is returned.
+  return adj_list
 
 
+# This function takes in the total list of speakers, the annotators (from the heap), and the data to be annotated (also in heap format).
+def allocate(total_speakers, annotators, data):
+  # Create a dictionary to hold the files that have been annotated and by whom
+  annotated_files = {audio[1]: [] for audio in data}
 
+  # Create a dictionary to hold the allocations
+  allocated = {}
+
+  # Loop through each annotator in the list and allocate files
+  # Each annotator should get 2 files to annotate
+  for person in annotators:
+
+    # Initialize annotating list for each person
+    person['annotating'] = []
+    allocated[person['name']] = []
+
+    # This keeps track of how many files have been assigned to the annotator so it won't exceed 2
+    assigned = 0
+    
+    for audio in data:
+
+        # Break if already assigned 2 files
+        if assigned >= 2:
+          break
+
+        # This gets the name of person whose audio the annotator would be annotating
+        audio_name = audio[1]
+
+        # Check if the audio file already has 2 annotators. 
+        # There's not enough annotators to do more than 2 per file
+        if len(annotated_files[audio_name]) >= 2:
+          continue
+
+        # Check if the annotator knows the person whose file it is or if it's their own file
+        adj_lst = create_graph(total_speakers)
+
+        # Skip if they know each other or if it's their own file
+        if audio_name in BFS(adj_lst, person['name']):
+          continue
+
+        # Skip if it's their own file
+        if audio_name in person['annotating']:
+          continue
+
+        # Allocate the file to the annotator
+        person['annotating'].append(audio)
+        allocated[person['name']].append(audio_name) # Add audio name to allocated list
+        annotated_files[audio_name].append(person['name']) # Add annotator to the audio's list
+        assigned += 1 # Increment the assigned count
+
+  return allocated    
+
+
+# Asks for input file name
 input_file = input("file")
+
+
 def main(input_file):
   # imports
   import pandas as pd
 
   '''
-  Lets say csv format will be
+  csv format will be
   name | age | gender | main language | other languages | proficiency | place they grew up | do they want to participate in round 2 | 'do they know other participants (names)'
   '''
+  # read in csv
   df = pd.read_csv(input_file)
 
   # step 1 & 2 - group into japanese and spanish. check if japanese speakers are native and grew up speaking japanese. those who don't match, filter them out
   '''
-  This will make two dictionaries. One for japanese speakers, and one for spanish speakers. Since I'm filtering by main language, the non-native speakers are automatically filtered out
-
-  I'm not sure if a hash table would be better for this???
+  This will make two dictionaries. One for japanese speakers, and one for spanish speakers. 
+  Since we're filtering by main language, the non-native speakers are automatically filtered out.
   '''
+
   # creates a list of dictionaries with this
   df = df.fillna('')
-  df['name'] = df['name'].str.lower()
+  df['name'] = df['name'].str.lower() # for ease of matching later
   df['do they know other participants (names)'] = df['do they know other participants (names)'].str.lower()
   speakers =  df.to_dict('records')
 
+  # These lists will be the main participants lists that will be used later.
   jpn_speakers = []
   spn_speakers = []
   for person in speakers:
@@ -258,7 +318,7 @@ def main(input_file):
   # step 3
   '''
   Since different variaties of a language will have different prosodic happenings, I need to prioritize people from certain areas.
-  Plus +2 priority for them
+  Plus +2 priority for them.
 
   I also want to prioritize people who are monolingual in case their other languages affect their native language.
   *If* a participant were to be multilingual, let is be english.
@@ -295,7 +355,7 @@ def main(input_file):
   # step 4 - create max heap lists
   '''
   Using the priority numbers from before, create max heap. This is just for the files to be annotated. So for the data. Participant max heap is later
-  1
+  This isn't the heaps just yet, just the lists to be read into the heaps.
   Can just be name/code and the priority number, it's not really necessary to store full info here
   '''
   spn_data_heap = heap_list(spn_speakers)
@@ -303,9 +363,8 @@ def main(input_file):
 
   # Step 5 - create max heaps
   '''
-  The left child of a node at index i is at 2*i + 1.
-  The right child of a node at index i is at 2*i + 2.
-  The parent of a node at index i is at (i-1) // 2
+  This is what makes the lists into max heaps. 
+  The function that creates the max heaps is called in heap_sort, which is why heap_sort is called here.
   '''
   heap_sort(jpn_data_heap)
   heap_sort(spn_data_heap)
@@ -326,7 +385,7 @@ def main(input_file):
 
   # step 7 - max heap part 2: annotator ver
   '''
-  So basically the subset of annotators that want to participate
+  So basically the subset of annotators that want to participate, sorted by priority. Same system as the the data heaps.
   '''
   jpn_annotate_heap = heap_list(round2_jpn)
   spn_annotate_heap = heap_list(round2_spn)
@@ -341,16 +400,18 @@ def main(input_file):
 
   Adjacency list is O(V + E) + better for sparce graphs like friend circles where not everyone knows each other,
   and adjacency matrix is O(V^2), better for dense small graphs. So adjacency list is better here.
+
+  This is all done through functions not called immediately here.
   '''
 
   # step 9 - allocate but they can't annotate their own stuff or files of people they know
   '''
   There's 4 heaps.
-  Priority list for the data
+  Priority list for the data:
   jpn_data_heap
   spn_data_heap
 
-  Priority list for just the people who agreed to do the annotation
+  Priority list for just the people who agreed to do the annotation:
   jpn_annotate_heap
   spn_annotate_heap
 
@@ -373,6 +434,7 @@ def main(input_file):
 
   spn_allocations = allocate(spn_speakers,spn_participants, spn_data_heap)
 
+  # step 10 - output allocations
   print("Spanish annotation allocations:")
   for annotator, audios in spn_allocations.items():
       print(f"{annotator}: {audios}")
