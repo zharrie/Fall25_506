@@ -9,18 +9,24 @@ from SocialNetwork import *
 network = Network()
 runtime = {
     "user": None,
-    "sp_algo": "bfs"
+    "dist_alg": "bfs",
 }
 
-def fmt_user(u):
-    return f"{str(u.id).zfill(4)}: {u.name} ({len(u.friends)} friends)"
+# === Helper Functions ===
 
-# credit: https://stackoverflow.com/questions/9647202/ordinal-numbers-replacement
-def ordinal(n: int):
-    if 11 <= (n % 100) <= 13:
-        suffix = 'th'
-    else:
-        suffix = ['th', 'st', 'nd', 'rd', 'th'][min(n % 10, 4)]
+def digits():
+    if not runtime.get("digits"): runtime["digits"] = math.floor(math.log10(network.get_total_users()))
+    return runtime["digits"]
+
+def fmt_uid(uid):
+    return str(uid).zfill(digits())
+
+def fmt_user(u):
+    return f"{fmt_uid(u.uid)}: {u.name} ({len(u.friends)} friends)"
+
+def ordinal(n: int): # credit: https://stackoverflow.com/questions/9647202/ordinal-numbers-replacement
+    if 11 <= (n % 100) <= 13: suffix = 'th'
+    else: suffix = ['th', 'st', 'nd', 'rd', 'th'][min(n % 10, 4)]
     return str(n) + suffix
 
 def todo():
@@ -28,41 +34,38 @@ def todo():
 
 # === Options Menu ===
 
-def sp_algo_bfs():
-    runtime["sp_algo"] = "bfs"
-
-def sp_algo_fw():
-    runtime["sp_algo"] = "fw"
+def opt_set_dist_alg(s):
+    runtime["dist_alg"] = s
+    alg = "Floyd-Warshall" if s == "fw" else "BFS/Dijkstra"
+    mprint(f"Now using {alg} for distance calculations")
 
 # === User Menu ===
 
 def user_search():
-    term = minput("Enter search term")
-    for user in network.search_users_by_name(term):
+    s = minput("Enter search string").lower()
+    for user in filter(lambda u: s in u.name.lower(), network.get_all_users()):
         mprint(fmt_user(user))
 
-def select_user():
-    display_cur_user()
+def user_select():
+    user_display()
     
-    id = minput("Enter user ID")
-    if id == 'x': return
-    if id == 'xx': mquit()
+    uid = minput("Enter user ID")
 
-    u = network.get_user_by_id(int(id))
+    u = network.get_user_by_uid(int(uid))
     if not u:
-        mprint(f"No user with ID '{id}' found")
+        mprint(f"No user with ID '{uid}' found")
     else:
-        mprint(f"Selected user {u.id}: {u.name}")
+        mprint(f"Selected user {u.uid}: {u.name}")
     runtime["user"] = u
 
-def display_cur_user():
+def user_display():
     u = runtime["user"]
     if not u:
         mprint("No user selected")
     else:
-        mprint(f"Current user: {u.name} ({u.id}), {len(u.friends)} friends")
+        mprint(f"Current user: {u.name} ({u.uid}), {len(u.friends)} friends")
 
-def users_n_degrees():
+def user_n_degrees():
     u = runtime["user"]
     if not u:
         mprint("No user selected")
@@ -70,12 +73,36 @@ def users_n_degrees():
     
     n = int(minput("Enter value for N"))
 
-    if runtime["sp_algo"] == "fw":
-        users_n_degrees_fw(u, n)
-    else:
-        users_n_degrees_bfs(u, n)
+    def n_degrees_list_bfs(u, n):
+        users = sorted(network.bfs_traverse(u.uid, end_dist=n).items(), key=lambda it: it[1])
+        lst = []
+        for deg in range(1,n+1):
+            deg_lst = sorted(
+                list(map(lambda id_deg: network.get_user_by_uid(id_deg[0]),
+                    filter(lambda id_deg: id_deg[1] == deg,
+                        users))),
+                key=lambda u: len(u.friends), reverse=True)
+            if len(deg_lst) > 0:
+                lst.append(deg_lst)
+        return lst
 
-def print_n_degrees(u, lst, n):
+    def n_degrees_list_fw(u, n):
+        v_list = network.get_all_uids()
+        d_list = network.build_d_matrix_fw()[v_list.index(u.uid)]
+        lst = []
+        for deg in range(1,n+1):
+            deg_lst = []
+            for i in range(len(d_list)):
+                if d_list[i] == deg:
+                    deg_lst.append(network.get_user_by_uid(v_list[i]))
+            deg_lst.sort(key=lambda u: len(u.friends), reverse=True)
+            if len(deg_lst) > 0:
+                lst.append(deg_lst)
+        return lst
+
+    use_fw = runtime["dist_alg"] == "fw"
+    lst = n_degrees_list_fw(u, n) if use_fw else n_degrees_list_bfs(u, n)
+
     mprint(f"Selected: {u.name}")
     for i in range(len(lst)):
         mprint(f"{ordinal(i+1)}-degree connections ({len(lst[i])})")
@@ -87,52 +114,42 @@ def print_n_degrees(u, lst, n):
                 break
             j += 1
 
-def users_n_degrees_bfs(u, n):
-    users = sorted(network.bfs_traverse(u.id, end_dist=n).items(), key=lambda it: it[1])
+def user_connection_path():
+    u = runtime["user"]
+    if not u:
+        mprint("No user selected")
+        return
+    
+    uid = int(minput("Enter target user ID"))
 
-    lst = []
-    for deg in range(1,n+1):
-        deg_lst = sorted(
-            list(map(lambda id_deg: network.get_user_by_id(id_deg[0]),
-                filter(lambda id_deg: id_deg[1] == deg,
-                    users))),
-            key=lambda u: len(u.friends), reverse=True)
-        if len(deg_lst) > 0:
-            lst.append(deg_lst)
+    path = network.get_path_fw(u.uid, uid)
+    if not path:
+        mprint("No connection path found")
+        return
+    mprint(f"Connection path found ({len(path)} steps):")
 
-    print_n_degrees(u, lst, n)
+    def fmt(u): return f"{fmt_uid(u.uid)}: {u.name}"
 
-def users_n_degrees_fw(u, n):
-    v_list = network.get_all_ids()
-    d_list = network.build_distance_matrix()[v_list.index(u.id)]
-
-    lst = []
-    for deg in range(1,n+1):
-        deg_lst = []
-        for i in range(len(d_list)):
-            if d_list[i] == deg:
-                deg_lst.append(network.get_user_by_id(v_list[i]))
-        deg_lst.sort(key=lambda u: len(u.friends), reverse=True)
-        if len(deg_lst) > 0:
-            lst.append(deg_lst)
-
-    print_n_degrees(u, lst, n)
-
+    mprint(f"\t{fmt(u)}")
+    for step in path:
+        next_u = network.get_user_by_uid(step[1])
+        mprint("\t ↓")
+        mprint(f"\t{fmt(next_u)}")
 
 # === Stats Menu ===
 
-def graph_stats():
+def stats_graph():
     total = network.get_total_users()
     visited = set()
     islands = 0
     diameter = 0
     while len(visited) < network.get_total_users():
         i = 0
-        while i in visited or not network.get_user_by_id(i):
+        while i in visited or not network.get_user_by_uid(i):
             i += 1
             continue
 
-        distances = network.bfs_traverse(i, visit_fn=lambda u: visited.add(u.id))
+        distances = network.bfs_traverse(i, visit_fn=lambda u: visited.add(u.uid))
         islands += 1
 
         d = sorted(distances.values(), reverse=True)[0]
@@ -143,21 +160,21 @@ def graph_stats():
     mprint(f"Graph diameter: {diameter}")
     mprint(f"Graph connectivity: {conn}")
 
-def user_stats():
+def stats_users():
     n_users = network.get_total_users()
     n_conns = network.get_total_connections()
     mprint(f"Total Users: {n_users}")
     mprint(f"Total Connections: {n_conns}")
-    mprint(f"Average Connections Per User: {n_conns / n_users}")
+    mprint(f"Avg. Friends Per User: {n_conns * 2 / n_users}")
 
-def most_connected(least=False):
+def stats_most_connected(least=False):
     n = int(minput("Enter how many"))
-    users = network.get_top_n_users(n, least)
+    users = sorted(network.get_all_users(), key=lambda u: len(u.friends), reverse=not least)[:n]
     for u in users:
         mprint(fmt_user(u))
 
-def least_connected():
-    most_connected(least=True)
+def stats_least_connected():
+    stats_most_connected(least=True)
 
 
 # ============================
@@ -165,25 +182,24 @@ def least_connected():
 # ----------------------------
 
 main_menu = [
-    ("q", "Exit the program", None),
-    ("n", "Options menu", ("options", [
-        ("n", "Shortest path algorithm -> BFS", sp_algo_bfs),
-        ("n", "Shortest path algorithm -> FW", sp_algo_fw),
+    ("Options", ("options", [
+        ("Distance algorithm -> BFS", lambda: opt_set_dist_alg("bfs")),
+        ("Distance algorithm -> FW", lambda: opt_set_dist_alg("fw")),
     ])),
-    ("n", "User menu", ("user", [
-        ("n", "Search users", user_search),
-        ("n", "Select user", select_user),
-        ("n", "Display current user", display_cur_user),
-        ("n", "Connection path", todo),
-        ("n", "Users within N degrees", users_n_degrees),
-        ("n", "Mutual friends", todo),
-        ("n", "Friend suggestions", todo),
+    ("Users", ("users", [
+        ("Search users", user_search),
+        ("Select user", user_select),
+        ("Display current user", user_display),
+        ("Connection path", user_connection_path),
+        ("Users within N degrees", user_n_degrees),
+        ("Mutual friends", todo),
+        ("Friend suggestions", todo),
     ])),
-    ("n", "Statistics menu", ("stats", [
-        ("n", "Graph statistics", graph_stats),
-        ("n", "User statistics", user_stats),
-        ("n", "Most-connected users", most_connected),
-        ("n", "Least-connected users", least_connected),
+    ("Statistics", ("stats", [
+        ("Graph statistics", stats_graph),
+        ("User statistics", stats_users),
+        ("Most-connected users", stats_most_connected),
+        ("Least-connected users", stats_least_connected),
     ])),
 ]
 
@@ -207,14 +223,6 @@ if loaded:
 else:
     mprint(f"Network load error: {msg}")
     mquit()
-
-# print((network.get_all_ids()))
-# print(len(network.get_all_connections()))
-
-# for r in network.build_distance_matrix():
-#     print(str(r).replace("inf", "-"))
-
-# print(network.get_path(11, 8))
 
 Menu("main", main_menu).run()
 mquit()

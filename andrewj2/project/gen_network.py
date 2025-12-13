@@ -29,14 +29,14 @@ def gen_network(lst):
 
         # with a few popular people each
         for j in range(r.randint(n//200, n//100)):
-            id = r.randint(a, b)
-            connect_user(id, a, b, r.randint(n//20, n//5)) # popular in the island
-            connect_user(id, 0, len(lst)-1, r.randint(2,5)) # and a couple connections outside
+            uid = r.randint(a, b)
+            connect_user(uid, a, b, r.randint(n//20, n//5)) # popular in the island
+            connect_user(uid, 0, len(lst)-1, r.randint(2,5)) # and a couple connections outside
 
     # add a few connections across the whole network
     for i in range(len(lst)//100):
-        id = r.randint(0, len(lst)-1)
-        connect_user(id, 0, len(lst)-1, 1)
+        uid = r.randint(0, len(lst)-1)
+        connect_user(uid, 0, len(lst)-1, 1)
     
     return net
 
@@ -64,7 +64,7 @@ for _ in range(0, 3*N):
 #             i += 1
 #             continue
 
-#         distances = network.bfs_traverse(i, visit_fn=lambda u: visited.add(u.id))
+#         distances = network.bfs_traverse(i, visit_fn=lambda u: visited.add(u.uid))
 #         islands += 1
 
 #         d = sorted(distances.values(), reverse=True)[0]
