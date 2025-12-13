@@ -6,9 +6,7 @@ Then, the participants will be prioritized based on certain attributes (place th
 Using heaps, the participants will be sorted by priority.
 Then, using graphs, the participants will be checked to see who knows who.
 Using BFS, the participants will be allocated audio files to annotate, making sure that no participant annotates their own file or the file of someone they know.
-
 The output will be a list of participants and the audio files they have been allocated to annotate.
-
 Objectives
 - Filter participants to check that they meet the criteria for the project
 - Prioritize participants based on certain attributes using a max heap
@@ -32,7 +30,7 @@ def heap_list(lst):
 def create_max_heap(index, heap, n):
     # index is the index of the current node
     while True:
-      
+
       left_child = 2 * index + 1
       right_child = 2 * index + 2
       largest = index
@@ -89,7 +87,7 @@ class Edge:
     def __init__(self, from_vertex, to_vertex):
         self.from_vertex = from_vertex
         self.to_vertex = to_vertex
-    
+
     def __repr__(self):
         return f"({self.from_vertex.label}, {self.to_vertex.label})"
 
@@ -100,9 +98,9 @@ class Graph:
     self.to_edges = dict()
 
   def get_edge_list(self):
-    edges_set = set()
+    edges_set = []
     for edges in self.from_edges.values(): 
-        edges_set.update(edges)            
+        edges_set.append(edges)            
     return edges_set
 
 
@@ -127,12 +125,12 @@ class Graph:
     return vertex
 
   def has_edge(self, from_vertex, to_vertex):
-    if from_vertex not in self.from_edges:
+    if from_vertex not in self.from_edges: # check if from_vertex exists in the edges at all
       return False
 
-    edges = self.from_edges[from_vertex]
+    edges = self.from_edges[from_vertex] # get all the edges outgoing from the from_vertex, loop through them
     for edge in edges:
-      if edge.to_vertex == to_vertex:
+      if edge.to_vertex == to_vertex: # check if the to_vertex matches what we're looking for
         return True
     return False
 
@@ -141,8 +139,8 @@ class Graph:
     if self.has_edge(vertexA, vertexB):
       return None
 
-    new_edge = Edge(vertexA, vertexB)
-
+    new_edge = Edge(vertexA, vertexB) # create new edge
+    # add edge to from_edges and to_edges dictionaries
     self.from_edges[vertexA].append(new_edge)
     self.to_edges[vertexB].append(new_edge)
 
@@ -153,15 +151,17 @@ class Graph:
   def adjacency_list(self):
     adj_lst = {}
 
+    # Loop through vertices using from_edges
     for vertex in self.from_edges:
         neighbors = []
 
+        # go through edges from that specific vertex
         for edge in self.from_edges[vertex]:
           if edge.from_vertex == vertex:
-            neighbor = edge.to_vertex          
-            neighbors.append(neighbor.label)
+            neighbor = edge.to_vertex  # get the neighbor vertex        
+            neighbors.append(neighbor.label) # add neighbor label to the list for that specific vertex
 
-        adj_lst[vertex.label] = neighbors
+        adj_lst[vertex.label] = neighbors # add to adjacency list dictionary
 
     return adj_lst
 
@@ -178,7 +178,7 @@ def BFS(adj_list, start):
   while q:
     vertex = q.popleft()
 
-    for neighbor in adj_list[vertex]:
+    for neighbor in adj_list[vertex]: # go through neighbors of the current vertex
       if neighbor not in discovered:
         discovered.add(neighbor)
         q.append(neighbor)
@@ -241,7 +241,7 @@ def allocate(total_speakers, annotators, data):
 
     # This keeps track of how many files have been assigned to the annotator so it won't exceed 2
     assigned = 0
-    
+
     for audio in data:
 
         # Break if already assigned 2 files
@@ -298,7 +298,7 @@ def main(input_file):
   '''
 
   # creates a list of dictionaries with this
-  df = df.fillna('')
+  df = df.fillna('') # fill na with empty string to avoid errors, mostly for names of other participants
   df['name'] = df['name'].str.lower() # for ease of matching later
   df['do they know other participants (names)'] = df['do they know other participants (names)'].str.lower()
   speakers =  df.to_dict('records')
@@ -316,10 +316,10 @@ def main(input_file):
   '''
   Since different variaties of a language will have different prosodic happenings, I need to prioritize people from certain areas.
   Plus +2 priority for them.
-
   I also want to prioritize people who are monolingual in case their other languages affect their native language.
   *If* a participant were to be multilingual, let is be english.
   So priority order goes monolingual(+2) > english(+1) > other(0)
+  Location priority for japanese speakers is tokyo (+2), for spanish speakers it's costa rica, mexico, colombia (+2).
   '''
 
   # check if they're from the ideal providence for japanese speakers. don't delete those who aren't but prioritize those who are.
@@ -362,6 +362,7 @@ def main(input_file):
   '''
   This is what makes the lists into max heaps. 
   The function that creates the max heaps is called in heap_sort, which is why heap_sort is called here.
+  Heap sort is O(N log N)
   '''
   heap_sort(jpn_data_heap)
   heap_sort(spn_data_heap)
@@ -394,10 +395,8 @@ def main(input_file):
   '''
   Use a graph
   If two people are adjacent, then they can't work on each others' files. They obviously can't work on their own files
-
   Adjacency list is O(V + E) + better for sparce graphs like friend circles where not everyone knows each other,
   and adjacency matrix is O(V^2), better for dense small graphs. So adjacency list is better here.
-
   This is all done through functions not called immediately here.
   '''
 
@@ -413,15 +412,13 @@ def main(input_file):
   spn_annotate_heap
 
   So everyone should have 2-3 files, ideally 2 or so people annotating each file
-
   Use max heap 1 with max heap 2 to get peak ideal match ups. Must check with graph to see if they know each other
-
   BFS. O(V + E). The graphs aren't very deep, so it's best to use BFS here.
+
+  - Grab person from the annotate heap, then grab person from the data heap. 
+  - If they are the same person or know each other, then skip to the next person in the data heap.
+  - Store that info in a list connected to that annotator. Also make a list for each files to track how many people  are annotating it. Each one should only get 2 annotators
   '''
-  # Grab person from the annotate heap, then grab person from the data heap. 
-  # If they are the same person or know each other, then go to the next
-  # store that info in a list connected to that annotator. Also make a list for each files to track how many people
-  # are annotating it. Each one should only get 2 annotators
 
   jpn_participants = [{'priority': p, 'name': n, 'annotating': []} for p, n in jpn_annotate_heap]
 

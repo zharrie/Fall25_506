@@ -35,5 +35,5 @@ The program starts by the user giving the path to a csv when prompted. It's then
 The csv has the following columns:
   name | age | gender | main language | other languages | proficiency | place they grew up | do they want to participate in round 2 | do they know other participants (names)
 
-The output is the allocations in the form of a dictionary in the following format:
-{name: [file1, file2], name2: [file1, file2]}
+The output is the allocations in a list in the following format:
+name: [file1, file2], name2: [file1, file2]
