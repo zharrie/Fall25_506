@@ -41,13 +41,14 @@ def gen_network(lst):
     return net
 
 r.shuffle(names)
-names = names[:10]
+N = 100
+names = names[:N]
 network = Network()
 for n in names:
     network.add_new_user(n)
-for _ in range(0, 30):
-    id1 = r.randint(0, 10)
-    id2 = r.randint(0, 10)
+for _ in range(0, 3*N):
+    id1 = r.randint(0, N)
+    id2 = r.randint(0, N)
     network.add_friend(id1, id2)
 
 # diameter = 0

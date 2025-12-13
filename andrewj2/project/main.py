@@ -8,7 +8,8 @@ from SocialNetwork import *
 
 network = Network()
 runtime = {
-    "user": None
+    "user": None,
+    "sp_algo": "bfs"
 }
 
 def fmt_user(u):
@@ -24,6 +25,14 @@ def ordinal(n: int):
 
 def todo():
     mprint("TODO")
+
+# === Options Menu ===
+
+def sp_algo_bfs():
+    runtime["sp_algo"] = "bfs"
+
+def sp_algo_fw():
+    runtime["sp_algo"] = "fw"
 
 # === User Menu ===
 
@@ -60,48 +69,54 @@ def users_n_degrees():
         return
     
     n = int(minput("Enter value for N"))
-    
-    users = sorted(network.bfs_traverse(u.id, end_dist=n).items(), key=lambda it: it[1])
-    mprint(f"Selected: {u.name}")
-    for deg in range(1,n+1):
-        deg_ids = sorted(list(map(lambda it: it[0], filter(lambda it: it[1] == deg, users))),
-            key=lambda it: len(network.get_user_by_id(it).friends), reverse=True)
-        mprint(f"{ordinal(deg)}-degree connections ({len(deg_ids)})")
-        i = 1
-        for id in deg_ids:
-            c = network.get_user_by_id(id)
-            if not c: continue
-            mprint(f"\t{c.name} ({len(c.friends)})")
-            if i >= 5:
-                mprint(f"\t...{len(deg_ids)-i} more...")
-                break
-            i += 1
 
-def users_n_degrees1():
-    u = runtime["user"]
-    if not u:
-        mprint("No user selected")
-        return
-    
-    n = int(minput("Enter value for N"))
-    
+    if runtime["sp_algo"] == "fw":
+        users_n_degrees_fw(u, n)
+    else:
+        users_n_degrees_bfs(u, n)
+
+def print_n_degrees(u, lst, n):
+    mprint(f"Selected: {u.name}")
+    for i in range(len(lst)):
+        mprint(f"{ordinal(i+1)}-degree connections ({len(lst[i])})")
+        j = 1
+        for deg_u in lst[i]:
+            mprint(f"\t{deg_u.name} ({len(deg_u.friends)})")
+            if j >= 5 and len(lst[i])-j > 1:
+                mprint(f"\t...{len(lst[i])-j} more...")
+                break
+            j += 1
+
+def users_n_degrees_bfs(u, n):
+    users = sorted(network.bfs_traverse(u.id, end_dist=n).items(), key=lambda it: it[1])
+
+    lst = []
+    for deg in range(1,n+1):
+        deg_lst = sorted(
+            list(map(lambda id_deg: network.get_user_by_id(id_deg[0]),
+                filter(lambda id_deg: id_deg[1] == deg,
+                    users))),
+            key=lambda u: len(u.friends), reverse=True)
+        if len(deg_lst) > 0:
+            lst.append(deg_lst)
+
+    print_n_degrees(u, lst, n)
+
+def users_n_degrees_fw(u, n):
     v_list = network.get_all_ids()
     d_list = network.build_distance_matrix()[v_list.index(u.id)]
-    mprint(f"Selected: {u.name}")
+
+    lst = []
     for deg in range(1,n+1):
-        deg_u_list = []
+        deg_lst = []
         for i in range(len(d_list)):
             if d_list[i] == deg:
-                deg_u_list.append(network.get_user_by_id(v_list[i]))
-        deg_u_list.sort(key=lambda u: len(u.friends), reverse=True)
-        mprint(f"{ordinal(deg)}-degree connections ({len(deg_u_list)})")
-        i = 1
-        for deg_u in deg_u_list:
-            mprint(f"\t{deg_u.name} ({len(deg_u.friends)})")
-            if i >= 5:
-                mprint(f"\t...{len(deg_u_list)-i} more...")
-                break
-            i += 1
+                deg_lst.append(network.get_user_by_id(v_list[i]))
+        deg_lst.sort(key=lambda u: len(u.friends), reverse=True)
+        if len(deg_lst) > 0:
+            lst.append(deg_lst)
+
+    print_n_degrees(u, lst, n)
 
 
 # === Stats Menu ===
@@ -150,14 +165,17 @@ def least_connected():
 # ----------------------------
 
 main_menu = [
-    ("x", "Exit the program", None),
+    ("q", "Exit the program", None),
+    ("n", "Options menu", ("options", [
+        ("n", "Shortest path algorithm -> BFS", sp_algo_bfs),
+        ("n", "Shortest path algorithm -> FW", sp_algo_fw),
+    ])),
     ("n", "User menu", ("user", [
         ("n", "Search users", user_search),
         ("n", "Select user", select_user),
         ("n", "Display current user", display_cur_user),
         ("n", "Connection path", todo),
         ("n", "Users within N degrees", users_n_degrees),
-        ("n", "Users within N degrees1", users_n_degrees1),
         ("n", "Mutual friends", todo),
         ("n", "Friend suggestions", todo),
     ])),
@@ -177,7 +195,7 @@ main_menu = [
 if len(argv) < 2:
     print("This program reads a social network graph stored in")
     print("a CSV file and provides tools to analyze the data\n")
-    print(f"Usage: python3 {sys.argv[0]} <CSV-PATH>")
+    print(f"Usage: python3 {argv[0]} <CSV-PATH>")
     quit()
 
 print("\n=== Social Network Analyzer ===\n")
@@ -198,5 +216,5 @@ else:
 
 # print(network.get_path(11, 8))
 
-run_menu("main", main_menu)
+Menu("main", main_menu).run()
 mquit()
