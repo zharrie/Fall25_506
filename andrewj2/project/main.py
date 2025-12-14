@@ -9,7 +9,7 @@ from SocialNetwork import *
 network = Network()
 runtime = {
     "user": None,
-    "dist_alg": "bfs",
+    "use_fw": False,
 }
 
 # === Helper Functions ===
@@ -34,10 +34,13 @@ def todo():
 
 # === Options Menu ===
 
-def opt_set_dist_alg(s):
-    runtime["dist_alg"] = s
-    alg = "Floyd-Warshall" if s == "fw" else "BFS/Dijkstra"
-    mprint(f"Now using {alg} for distance calculations")
+def opt_set_use_fw(b):
+    runtime["use_fw"] = b
+    alg = "Floyd-Warshall" if b else "BFS/Dijkstra"
+    mprint(f"Now using {alg} for distance/shortest path")
+
+def use_fw():
+    return runtime["use_fw"]
 
 # === User Menu ===
 
@@ -100,8 +103,7 @@ def user_n_degrees():
                 lst.append(deg_lst)
         return lst
 
-    use_fw = runtime["dist_alg"] == "fw"
-    lst = n_degrees_list_fw(u, n) if use_fw else n_degrees_list_bfs(u, n)
+    lst = n_degrees_list_fw(u, n) if use_fw() else n_degrees_list_bfs(u, n)
 
     mprint(f"Selected: {u.name}")
     for i in range(len(lst)):
@@ -120,19 +122,20 @@ def user_connection_path():
         mprint("No user selected")
         return
     
-    uid = int(minput("Enter target user ID"))
+    fid = int(minput("Enter target user ID"))
 
-    path = network.get_path_fw(u.uid, uid)
+    path = network.get_path_fw(u.uid, fid) if use_fw() else network.get_path_dijkstra(u.uid, fid)
     if not path:
         mprint("No connection path found")
         return
+    path.pop(0)
     mprint(f"Connection path found ({len(path)} steps):")
 
     def fmt(u): return f"{fmt_uid(u.uid)}: {u.name}"
 
     mprint(f"\t{fmt(u)}")
-    for step in path:
-        next_u = network.get_user_by_uid(step[1])
+    for uid in path:
+        next_u = network.get_user_by_uid(uid)
         mprint("\t ↓")
         mprint(f"\t{fmt(next_u)}")
 
@@ -183,8 +186,8 @@ def stats_least_connected():
 
 main_menu = [
     ("Options", ("options", [
-        ("Distance algorithm -> BFS", lambda: opt_set_dist_alg("bfs")),
-        ("Distance algorithm -> FW", lambda: opt_set_dist_alg("fw")),
+        ("Distance algorithm -> BFS/Dijkstra", lambda: opt_set_use_fw(False)),
+        ("Distance algorithm -> FW", lambda: opt_set_use_fw(True)),
     ])),
     ("Users", ("users", [
         ("Search users", user_search),
@@ -224,5 +227,6 @@ else:
     mprint(f"Network load error: {msg}")
     mquit()
 
-Menu("main", main_menu).run()
+try: Menu("main", main_menu).run()
+except KeyboardInterrupt: print()
 mquit()

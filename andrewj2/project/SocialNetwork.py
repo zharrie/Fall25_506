@@ -15,18 +15,18 @@ class User:
 
 class Network:
     def __init__(self):
-        self.__map = {}
-        self.__next_id = 0
+        self.__u_dict = {}
+        self.__next_uid = 0
         self.__d_matrix = None
     
     def __str__(self):
-        return f"<Network len(__map)={len(self.__map)}>"
+        return f"<Network len(__map)={len(self.__u_dict)}>"
         
     def get_user_by_uid(self, uid):
-        return self.__map.get(uid)
+        return self.__u_dict.get(uid)
 
     def get_all_users(self):
-        return sorted(self.__map.values(), key=lambda u: u.uid)
+        return sorted(self.__u_dict.values(), key=lambda u: u.uid)
 
     def get_all_uids(self):
         return list(map(lambda u: u.uid, self.get_all_users()))
@@ -40,21 +40,21 @@ class Network:
         return connections
 
     def get_total_users(self):
-        return len(self.__map)
+        return len(self.__u_dict)
     
     def get_total_connections(self):
-        return sum(map(lambda u: len(u.friends), self.__map.values())) // 2
+        return sum(map(lambda u: len(u.friends), self.__u_dict.values())) // 2
 
     def add_new_user(self, name):
-        uid = self.__next_id
-        self.__next_id += 1
-        self.__map[uid] = User(uid, name)
+        uid = self.__next_uid
+        self.__next_uid += 1
+        self.__u_dict[uid] = User(uid, name)
         return uid
     
     def overwrite_user(self, user):
-        self.__map[user.uid] = user
-        if self.__next_id <= user.uid:
-            self.__next_id = user.uid + 1
+        self.__u_dict[user.uid] = user
+        if self.__next_uid <= user.uid:
+            self.__next_uid = user.uid + 1
 
     def add_friend(self, uid1, uid2):
         if uid1 == uid2: return
@@ -84,7 +84,7 @@ class Network:
         try:
             with open(csv_path, mode='w') as file:
                 writer = csv.writer(file)
-                writer.writerows(map(lambda u: [u.uid, u.name, " ".join(map(str, u.friends))], self.__map.values()))
+                writer.writerows(map(lambda u: [u.uid, u.name, " ".join(map(str, u.friends))], self.__u_dict.values()))
         except Exception as e:
             return (False, e)
         return (True, "Success")
@@ -172,7 +172,7 @@ class Network:
         v_list = self.get_all_uids()
         e_list = self.get_all_connections()
         start = v_list.index(start_uid)
-        path = []
+        path = [end_uid]
 
         cur = v_list.index(end_uid)
         while cur != start:
@@ -183,7 +183,7 @@ class Network:
                 actual = d_matrix[start][v_list.index(e[0])]
                 if actual != math.inf and expect == actual:
                     cur = v_list.index(e[0])
-                    path = [e] + path
+                    path = [e[0]] + path
                     found_next = True
                     break
             if not found_next:
@@ -191,3 +191,28 @@ class Network:
         
         return path
 
+    def get_path_dijkstra(self, start_uid, end_uid):
+        unvisited = self.get_all_uids()
+        # uid: (dist, pred)
+        d_dict = {k:v for k,v in map(lambda uid: (uid, (math.inf, None)), unvisited)}
+        d_dict[start_uid] = (0, None)
+
+        while len(unvisited) > 0:
+            min_i = 0
+            for i in range(1, len(unvisited)):
+                if d_dict[unvisited[i]][0] < d_dict[min_i][0]: min_i = i
+            uid = unvisited.pop(min_i)
+
+            new_dist = d_dict[uid][0] + 1
+            for fid in self.get_user_by_uid(uid).friends:
+                if new_dist < d_dict[fid][0]: d_dict[fid] = (new_dist, uid)
+        
+        if d_dict[end_uid][0] == math.inf:
+            return None
+
+        path = []
+        uid = end_uid
+        while uid != start_uid:
+            path = [uid] + path
+            uid = d_dict[uid][1]
+        return [start_uid] + path
