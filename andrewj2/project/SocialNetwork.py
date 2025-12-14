@@ -149,6 +149,32 @@ class Network:
                 for fid in user.friends:
                     v_stack.append(fid)
 
+    def get_path_dijkstra(self, start_uid, end_uid):
+        unvisited = self.get_all_uids()
+        # uid: (dist, pred)
+        d_dict = {k:v for k,v in map(lambda uid: (uid, (math.inf, None)), unvisited)}
+        d_dict[start_uid] = (0, None)
+
+        while len(unvisited) > 0:
+            min_i = 0
+            for i in range(1, len(unvisited)):
+                if d_dict[unvisited[i]][0] < d_dict[min_i][0]: min_i = i
+            uid = unvisited.pop(min_i)
+
+            new_dist = d_dict[uid][0] + 1
+            for fid in self.get_user_by_uid(uid).friends:
+                if new_dist < d_dict[fid][0]: d_dict[fid] = (new_dist, uid)
+        
+        if d_dict[end_uid][0] == math.inf:
+            return None
+
+        path = []
+        uid = end_uid
+        while uid != start_uid:
+            path = [uid] + path
+            uid = d_dict[uid][1]
+        return [start_uid] + path
+
     def build_d_matrix_fw(self):
         if self.__d_matrix: return self.__d_matrix
 
@@ -198,29 +224,3 @@ class Network:
                 return None
         
         return path
-
-    def get_path_dijkstra(self, start_uid, end_uid):
-        unvisited = self.get_all_uids()
-        # uid: (dist, pred)
-        d_dict = {k:v for k,v in map(lambda uid: (uid, (math.inf, None)), unvisited)}
-        d_dict[start_uid] = (0, None)
-
-        while len(unvisited) > 0:
-            min_i = 0
-            for i in range(1, len(unvisited)):
-                if d_dict[unvisited[i]][0] < d_dict[min_i][0]: min_i = i
-            uid = unvisited.pop(min_i)
-
-            new_dist = d_dict[uid][0] + 1
-            for fid in self.get_user_by_uid(uid).friends:
-                if new_dist < d_dict[fid][0]: d_dict[fid] = (new_dist, uid)
-        
-        if d_dict[end_uid][0] == math.inf:
-            return None
-
-        path = []
-        uid = end_uid
-        while uid != start_uid:
-            path = [uid] + path
-            uid = d_dict[uid][1]
-        return [start_uid] + path
