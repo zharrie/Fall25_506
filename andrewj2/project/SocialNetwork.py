@@ -18,19 +18,22 @@ class Network:
         self.__u_dict = {}
         self.__next_uid = 0
         self.__d_matrix = None
-    
+
     def __str__(self):
         return f"<Network len(__map)={len(self.__u_dict)}>"
-        
+
     def get_user_by_uid(self, uid):
         return self.__u_dict.get(uid)
+
+    def get_users_by_uids(self, uid_list):
+        return list(map(self.get_user_by_uid, uid_list))
 
     def get_all_users(self):
         return sorted(self.__u_dict.values(), key=lambda u: u.uid)
 
     def get_all_uids(self):
         return list(map(lambda u: u.uid, self.get_all_users()))
-    
+
     def get_all_connections(self):
         connections = set()
         for u in self.get_all_users():
@@ -38,6 +41,11 @@ class Network:
                 connections.add((u.uid, fid))
         
         return connections
+
+    def get_mutual_connections(self, uid1, uid2):
+        u1 = self.get_user_by_uid(uid1)
+        u2 = self.get_user_by_uid(uid2)
+        return list(set(u1.friends) & set(u2.friends))
 
     def get_total_users(self):
         return len(self.__u_dict)

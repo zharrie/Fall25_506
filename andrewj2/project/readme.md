@@ -5,7 +5,7 @@ Author: Jasper Andrew
 ## to-do
 - ~~load network~~
 - connection analysis
-   - find degree of separation between any two users
+   - ~~find degree of separation between any two users~~
    - find mutual friends between two users
    - ~~find all friends within N degrees~~
 - ~~network statistics~~
@@ -14,7 +14,7 @@ Author: Jasper Andrew
   - ~~network diameter (longest shortest path)~~
 - ~~most/least connected users~~
 - friend suggestions
-   - find connection path
+   - ~~find connection path~~
    - suggest new friends (friends-of-friends not already connected)
    - rank suggestions by mutual friends
 - ~~user search~~
