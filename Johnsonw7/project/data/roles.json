@@ -1,0 +1,965 @@
+[
+ 
+  {
+    "id": "R001",
+    "name": "registered_nurse_med_surg",
+    "required_skills": [
+      "patient_care",
+      "clinical_assessment",
+      "medication_administration",
+      "vital_sign_monitoring",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R002",
+    "name": "registered_nurse_icu",
+    "required_skills": [
+      "patient_care",
+      "clinical_assessment",
+      "critical_decision_making",
+      "medication_administration",
+      "infection_control"
+    ]
+  },
+  {
+    "id": "R003",
+    "name": "registered_nurse_er",
+    "required_skills": [
+      "emergency_care",
+      "critical_decision_making",
+      "patient_care",
+      "clinical_assessment",
+      "communication"
+    ]
+  },
+  {
+    "id": "R004",
+    "name": "licensed_practical_nurse",
+    "required_skills": [
+      "basic_patient_care",
+      "vital_sign_monitoring",
+      "patient_care",
+      "infection_control"
+    ]
+  },
+  {
+    "id": "R005",
+    "name": "nurse_manager",
+    "required_skills": [
+      "leadership",
+      "staff_training",
+      "patient_care",
+      "documentation",
+      "communication"
+    ]
+  },
+  {
+    "id": "R006",
+    "name": "nurse_educator",
+    "required_skills": [
+      "staff_training",
+      "curriculum_development",
+      "clinical_assessment",
+      "presentation_skills"
+    ]
+  },
+  {
+    "id": "R007",
+    "name": "charge_nurse",
+    "required_skills": [
+      "leadership",
+      "teamwork",
+      "clinical_assessment",
+      "medication_administration"
+    ]
+  },
+  {
+    "id": "R008",
+    "name": "pediatric_nurse",
+    "required_skills": [
+      "patient_care",
+      "communication",
+      "infection_control",
+      "patient_education"
+    ]
+  },
+  {
+    "id": "R009",
+    "name": "oncology_nurse",
+    "required_skills": [
+      "patient_care",
+      "medication_administration",
+      "documentation",
+      "patient_education"
+    ]
+  },
+  {
+    "id": "R010",
+    "name": "surgical_nurse",
+    "required_skills": [
+      "patient_care",
+      "sterilization",
+      "equipment_handling",
+      "teamwork"
+    ]
+  },
+  {
+    "id": "R011",
+    "name": "float_pool_nurse",
+    "required_skills": [
+      "patient_care",
+      "clinical_assessment",
+      "teamwork",
+      "communication"
+    ]
+  },
+  {
+    "id": "R012",
+    "name": "home_health_nurse",
+    "required_skills": [
+      "patient_care",
+      "case_management",
+      "care_planning",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R013",
+    "name": "wound_care_nurse",
+    "required_skills": [
+      "patient_care",
+      "infection_control",
+      "documentation",
+      "patient_education"
+    ]
+  },
+  {
+    "id": "R014",
+    "name": "telehealth_nurse",
+    "required_skills": [
+      "patient_communication",
+      "documentation",
+      "patient_education",
+      "clinical_assessment"
+    ]
+  },
+  {
+    "id": "R015",
+    "name": "infection_prevention_nurse",
+    "required_skills": [
+      "infection_control",
+      "staff_education",
+      "policy_development",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R016",
+    "name": "triage_nurse",
+    "required_skills": [
+      "clinical_assessment",
+      "emergency_care",
+      "communication",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R017",
+    "name": "hospitalist_physician",
+    "required_skills": [
+      "diagnosis",
+      "treatment_planning",
+      "clinical_assessment",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R018",
+    "name": "emergency_medicine_physician",
+    "required_skills": [
+      "diagnosis",
+      "emergency_care",
+      "critical_decision_making",
+      "clinical_assessment"
+    ]
+  },
+  {
+    "id": "R019",
+    "name": "intensivist_physician",
+    "required_skills": [
+      "critical_decision_making",
+      "clinical_assessment",
+      "treatment_planning",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R020",
+    "name": "pediatrician",
+    "required_skills": [
+      "diagnosis",
+      "treatment_planning",
+      "patient_communication",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R021",
+    "name": "general_surgeon",
+    "required_skills": [
+      "diagnosis",
+      "treatment_planning",
+      "critical_decision_making",
+      "clinical_assessment"
+    ]
+  },
+  {
+    "id": "R022",
+    "name": "cardiologist",
+    "required_skills": [
+      "diagnosis",
+      "treatment_planning",
+      "critical_decision_making",
+      "patient_communication"
+    ]
+  },
+  {
+    "id": "R023",
+    "name": "anesthesiologist",
+    "required_skills": [
+      "critical_decision_making",
+      "risk_management",
+      "clinical_assessment",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R024",
+    "name": "radiologist_physician",
+    "required_skills": [
+      "image_interpretation",
+      "diagnosis",
+      "report_writing"
+    ]
+  },
+  {
+    "id": "R025",
+    "name": "psychiatrist",
+    "required_skills": [
+      "diagnosis",
+      "treatment_planning",
+      "patient_communication",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R026",
+    "name": "infectious_disease_physician",
+    "required_skills": [
+      "diagnosis",
+      "treatment_planning",
+      "infection_control",
+      "policy_development"
+    ]
+  },
+  {
+    "id": "R027",
+    "name": "hospitalist_nocturnist",
+    "required_skills": [
+      "diagnosis",
+      "treatment_planning",
+      "clinical_assessment",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R028",
+    "name": "palliative_care_physician",
+    "required_skills": [
+      "treatment_planning",
+      "patient_communication",
+      "documentation",
+      "case_management"
+    ]
+  },
+  {
+    "id": "R029",
+    "name": "obstetrician_gynecologist",
+    "required_skills": [
+      "diagnosis",
+      "treatment_planning",
+      "critical_decision_making",
+      "clinical_assessment"
+    ]
+  },
+  {
+    "id": "R030",
+    "name": "physical_therapist",
+    "required_skills": [
+      "rehabilitation_planning",
+      "mobility_training",
+      "patient_education",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R031",
+    "name": "occupational_therapist",
+    "required_skills": [
+      "rehabilitation_planning",
+      "mobility_training",
+      "patient_education",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R032",
+    "name": "speech_language_pathologist",
+    "required_skills": [
+      "speech_therapy",
+      "swallowing_assessment",
+      "patient_education",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R033",
+    "name": "respiratory_therapist",
+    "required_skills": [
+      "respiratory_care",
+      "ventilator_management",
+      "patient_care",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R034",
+    "name": "dietitian",
+    "required_skills": [
+      "nutrition_assessment",
+      "meal_planning",
+      "patient_education",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R035",
+    "name": "social_worker",
+    "required_skills": [
+      "case_management",
+      "care_planning",
+      "patient_communication",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R036",
+    "name": "clinical_psychologist",
+    "required_skills": [
+      "diagnosis",
+      "treatment_planning",
+      "patient_communication",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R037",
+    "name": "rehab_aide",
+    "required_skills": [
+      "mobility_training",
+      "basic_patient_care",
+      "patient_care"
+    ]
+  },
+  {
+    "id": "R038",
+    "name": "respiratory_therapy_technician",
+    "required_skills": [
+      "respiratory_care",
+      "equipment_handling",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R039",
+    "name": "clinical_case_manager",
+    "required_skills": [
+      "case_management",
+      "care_planning",
+      "documentation",
+      "communication"
+    ]
+  },
+  {
+    "id": "R040",
+    "name": "recreational_therapist",
+    "required_skills": [
+      "rehabilitation_planning",
+      "patient_education",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R041",
+    "name": "orthopedic_technician",
+    "required_skills": [
+      "equipment_handling",
+      "mobility_training",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R042",
+    "name": "audiologist",
+    "required_skills": [
+      "diagnosis",
+      "patient_education",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R043",
+    "name": "radiology_technologist",
+    "required_skills": [
+      "imaging_equipment_operation",
+      "patient_care",
+      "radiation_safety",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R044",
+    "name": "ct_technologist",
+    "required_skills": [
+      "imaging_equipment_operation",
+      "radiation_safety",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R045",
+    "name": "mri_technologist",
+    "required_skills": [
+      "imaging_equipment_operation",
+      "technical_troubleshooting",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R046",
+    "name": "ultrasound_technologist",
+    "required_skills": [
+      "imaging_equipment_operation",
+      "patient_care",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R047",
+    "name": "medical_laboratory_scientist",
+    "required_skills": [
+      "lab_testing",
+      "sample_processing",
+      "quality_control",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R048",
+    "name": "medical_laboratory_technician",
+    "required_skills": [
+      "lab_testing",
+      "sample_processing",
+      "record_keeping"
+    ]
+  },
+  {
+    "id": "R049",
+    "name": "pathology_assistant",
+    "required_skills": [
+      "lab_testing",
+      "sample_processing",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R050",
+    "name": "nuclear_medicine_technologist",
+    "required_skills": [
+      "imaging_equipment_operation",
+      "radiation_safety",
+      "lab_testing"
+    ]
+  },
+  {
+    "id": "R051",
+    "name": "phlebotomist",
+    "required_skills": [
+      "sample_processing",
+      "patient_care",
+      "infection_control",
+      "record_keeping"
+    ]
+  },
+  {
+    "id": "R052",
+    "name": "radiology_supervisor",
+    "required_skills": [
+      "imaging_equipment_operation",
+      "leadership",
+      "quality_improvement",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R053",
+    "name": "blood_bank_technologist",
+    "required_skills": [
+      "lab_testing",
+      "sample_processing",
+      "record_keeping",
+      "quality_control"
+    ]
+  },
+  {
+    "id": "R054",
+    "name": "clinical_chemistry_technologist",
+    "required_skills": [
+      "lab_testing",
+      "quality_control",
+      "documentation"
+    ]
+  },
+  {
+    "_comment": "Administrative Roles"
+  },
+  {
+    "id": "R055",
+    "name": "unit_secretary",
+    "required_skills": [
+      "data_entry",
+      "communication",
+      "record_keeping"
+    ]
+  },
+  {
+    "id": "R056",
+    "name": "health_information_technician",
+    "required_skills": [
+      "record_keeping",
+      "data_entry",
+      "hipaa_compliance"
+    ]
+  },
+  {
+    "id": "R057",
+    "name": "billing_specialist",
+    "required_skills": [
+      "medical_billing",
+      "insurance_processing",
+      "attention_to_detail"
+    ]
+  },
+  {
+    "id": "R058",
+    "name": "medical_coder",
+    "required_skills": [
+      "icd_coding",
+      "documentation",
+      "attention_to_detail"
+    ]
+  },
+  {
+    "id": "R059",
+    "name": "admissions_coordinator",
+    "required_skills": [
+      "customer_service",
+      "data_entry",
+      "communication"
+    ]
+  },
+  {
+    "id": "R060",
+    "name": "patient_care_coordinator",
+    "required_skills": [
+      "care_planning",
+      "case_management",
+      "communication",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R061",
+    "name": "care_transitions_coach",
+    "required_skills": [
+      "care_planning",
+      "patient_education",
+      "communication"
+    ]
+  },
+  {
+    "id": "R062",
+    "name": "hospital_administrator",
+    "required_skills": [
+      "leadership",
+      "strategic_planning",
+      "budget_management",
+      "communication"
+    ]
+  },
+  {
+    "id": "R063",
+    "name": "quality_improvement_coordinator",
+    "required_skills": [
+      "quality_improvement",
+      "data_analysis",
+      "report_writing"
+    ]
+  },
+  {
+    "id": "R064",
+    "name": "patient_experience_manager",
+    "required_skills": [
+      "customer_service",
+      "feedback_analysis",
+      "communication"
+    ]
+  },
+  {
+    "id": "R065",
+    "name": "bed_management_coordinator",
+    "required_skills": [
+      "data_analysis",
+      "care_planning",
+      "communication"
+    ]
+  },
+  {
+    "id": "R066",
+    "name": "medical_scribe",
+    "required_skills": [
+      "documentation",
+      "data_entry",
+      "attention_to_detail"
+    ]
+  },
+  {
+    "id": "R067",
+    "name": "environmental_services_worker",
+    "required_skills": [
+      "sanitation",
+      "infection_control",
+      "attention_to_detail",
+      "equipment_handling"
+    ]
+  },
+  {
+    "id": "R068",
+    "name": "maintenance_technician",
+    "required_skills": [
+      "equipment_repair",
+      "equipment_maintenance",
+      "safety_procedures"
+    ]
+  },
+  {
+    "id": "R069",
+    "name": "biomedical_equipment_technician",
+    "required_skills": [
+      "equipment_maintenance",
+      "electronic_diagnostics",
+      "technical_troubleshooting",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R070",
+    "name": "central_supply_technician",
+    "required_skills": [
+      "inventory_management",
+      "sterilization",
+      "equipment_handling",
+      "record_keeping"
+    ]
+  },
+  {
+    "id": "R071",
+    "name": "operating_room_technician",
+    "required_skills": [
+      "sterilization",
+      "equipment_handling",
+      "teamwork"
+    ]
+  },
+  {
+    "id": "R072",
+    "name": "icu_technician",
+    "required_skills": [
+      "equipment_handling",
+      "patient_care",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R073",
+    "name": "dialysis_technician",
+    "required_skills": [
+      "equipment_handling",
+      "patient_care",
+      "infection_control"
+    ]
+  },
+  {
+    "id": "R074",
+    "name": "facilities_manager",
+    "required_skills": [
+      "leadership",
+      "budget_management",
+      "strategic_planning",
+      "equipment_maintenance"
+    ]
+  },
+  {
+    "id": "R075",
+    "name": "laundry_services_worker",
+    "required_skills": [
+      "sanitation",
+      "attention_to_detail",
+      "equipment_handling"
+    ]
+  },
+  {
+    "id": "R076",
+    "name": "plant_operations_technician",
+    "required_skills": [
+      "equipment_maintenance",
+      "safety_procedures",
+      "technical_troubleshooting"
+    ]
+  },
+  {
+    "id": "R077",
+    "name": "waste_management_technician",
+    "required_skills": [
+      "sanitation",
+      "safety_procedures",
+      "attention_to_detail"
+    ]
+  },
+  {
+    "id": "R078",
+    "name": "security_officer",
+    "required_skills": [
+      "incident_response",
+      "security_observation",
+      "communication",
+      "report_writing"
+    ]
+  },
+  {
+    "id": "R079",
+    "name": "transport_technician",
+    "required_skills": [
+      "patient_transport",
+      "safety_procedures",
+      "customer_service"
+    ]
+  },
+  {
+    "id": "R080",
+    "name": "parking_attendant",
+    "required_skills": [
+      "customer_service",
+      "observation_skills",
+      "communication"
+    ]
+  },
+  {
+    "id": "R081",
+    "name": "emergency_medical_technician",
+    "required_skills": [
+      "pre_hospital_care",
+      "basic_life_support",
+      "patient_transport"
+    ]
+  },
+  {
+    "id": "R082",
+    "name": "paramedic",
+    "required_skills": [
+      "advanced_life_support",
+      "critical_thinking",
+      "emergency_care"
+    ]
+  },
+  {
+    "id": "R083",
+    "name": "dispatcher",
+    "required_skills": [
+      "communication",
+      "incident_response",
+      "data_entry"
+    ]
+  },
+  {
+    "id": "R084",
+    "name": "security_supervisor",
+    "required_skills": [
+      "leadership",
+      "incident_response",
+      "security_observation"
+    ]
+  },
+  {
+    "id": "R085",
+    "name": "valet_attendant",
+    "required_skills": [
+      "customer_service",
+      "patient_transport",
+      "observation_skills"
+    ]
+  },
+  {
+    "id": "R086",
+    "name": "safety_officer",
+    "required_skills": [
+      "safety_procedures",
+      "risk_management",
+      "observation_skills"
+    ]
+  },
+  {
+    "id": "R087",
+    "name": "emergency_preparedness_coordinator",
+    "required_skills": [
+      "risk_management",
+      "process_mapping",
+      "staff_education"
+    ]
+  },
+  {
+    "_comment": "Pharmacy Roles"
+  },
+  {
+    "id": "R088",
+    "name": "pharmacist",
+    "required_skills": [
+      "medication_administration",
+      "patient_education",
+      "documentation",
+      "attention_to_detail"
+    ]
+  },
+  {
+    "id": "R089",
+    "name": "pharmacy_technician",
+    "required_skills": [
+      "medication_administration",
+      "inventory_management",
+      "data_entry"
+    ]
+  },
+  {
+    "id": "R090",
+    "name": "clinical_pharmacist",
+    "required_skills": [
+      "medication_administration",
+      "treatment_planning",
+      "patient_communication"
+    ]
+  },
+  {
+    "id": "R091",
+    "name": "pharmacy_buyer",
+    "required_skills": [
+      "inventory_management",
+      "budget_management",
+      "communication"
+    ]
+  },
+  {
+    "id": "R092",
+    "name": "pharmacy_manager",
+    "required_skills": [
+      "leadership",
+      "inventory_management",
+      "staff_training",
+      "budget_management"
+    ]
+  },
+  {
+    "id": "R093",
+    "name": "clinical_informatics_specialist",
+    "required_skills": [
+      "data_analysis",
+      "process_mapping",
+      "staff_education",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R094",
+    "name": "ehr_trainer",
+    "required_skills": [
+      "staff_training",
+      "curriculum_development",
+      "presentation_skills",
+      "documentation"
+    ]
+  },
+  {
+    "id": "R095",
+    "name": "health_data_analyst",
+    "required_skills": [
+      "data_analysis",
+      "report_writing",
+      "quality_improvement"
+    ]
+  },
+  {
+    "id": "R096",
+    "name": "biostatistician",
+    "required_skills": [
+      "data_analysis",
+      "report_writing",
+      "quality_control"
+    ]
+  },
+  {
+    "id": "R097",
+    "name": "it_support_specialist",
+    "required_skills": [
+      "technical_troubleshooting",
+      "equipment_maintenance",
+      "customer_service"
+    ]
+  },
+  {
+    "id": "R098",
+    "name": "network_engineer_healthcare",
+    "required_skills": [
+      "technical_troubleshooting",
+      "risk_management",
+      "safety_procedures"
+    ]
+  },
+  {
+    "id": "R099",
+    "name": "cybersecurity_analyst_healthcare",
+    "required_skills": [
+      "risk_management",
+      "policy_development",
+      "hipaa_compliance"
+    ]
+  },
+  {
+    "id": "R100",
+    "name": "clinical_decision_support_analyst",
+    "required_skills": [
+      "data_analysis",
+      "diagnosis",
+      "process_mapping"
+    ]
+  }
+]

@@ -1,0 +1,604 @@
+[
+  {
+    "id": "C001",
+    "title": "Nursing Foundations: Patient Care and Assessment",
+    "skills": ["patient_care", "basic_patient_care", "clinical_assessment"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "C002",
+    "title": "Nursing Skills: Vital Signs and Monitoring",
+    "skills": ["vital_sign_monitoring", "patient_care", "documentation"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "C003",
+    "title": "Medication Administration for Nurses",
+    "skills": ["medication_administration", "clinical_assessment", "attention_to_detail"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C004",
+    "title": "Infection Prevention for Bedside Nurses",
+    "skills": ["infection_control", "sanitation", "safety_procedures"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C005",
+    "title": "Clinical Documentation and Charting Basics",
+    "skills": ["documentation", "data_entry", "record_keeping"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "C006",
+    "title": "Communication Skills for Nursing Staff",
+    "skills": ["communication", "patient_education", "customer_service"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "C007",
+    "title": "Intermediate Patient Assessment",
+    "skills": ["clinical_assessment", "diagnosis", "critical_decision_making"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C008",
+    "title": "Advanced Medication Safety in Hospital Settings",
+    "skills": ["medication_administration", "risk_management", "attention_to_detail"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C009",
+    "title": "Nursing Care Planning and Coordination",
+    "skills": ["care_planning", "case_management", "documentation"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C010",
+    "title": "Patient Education Strategies for Nurses",
+    "skills": ["patient_education", "communication", "documentation"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C011",
+    "title": "Critical Care Nursing: ICU Essentials",
+    "skills": ["clinical_assessment", "critical_decision_making", "patient_care"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C012",
+    "title": "Emergency Nursing: Triage and Stabilization",
+    "skills": ["emergency_care", "clinical_assessment", "basic_life_support"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C013",
+    "title": "Ventilator Management for Bedside Staff",
+    "skills": ["ventilator_management", "respiratory_care", "patient_care"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C014",
+    "title": "Wound Care and Infection Prevention",
+    "skills": ["infection_control", "patient_care", "documentation"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C015",
+    "title": "Nursing Leadership at the Unit Level",
+    "skills": ["leadership", "staff_training", "communication"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C016",
+    "title": "Charge Nurse Decision-Making",
+    "skills": ["critical_decision_making", "leadership", "care_planning"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C017",
+    "title": "Nurse Precepting and Staff Development",
+    "skills": ["staff_training", "curriculum_development", "presentation_skills"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C018",
+    "title": "Telehealth Nursing Communication",
+    "skills": ["patient_communication", "documentation", "patient_education"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C019",
+    "title": "High-Risk Medication Administration",
+    "skills": ["medication_administration", "risk_management", "quality_control"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C020",
+    "title": "Evidence-Based Practice for Clinical Nurses",
+    "skills": ["quality_improvement", "data_analysis", "report_writing"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C021",
+    "title": "Diagnostic Reasoning in Internal Medicine",
+    "skills": ["diagnosis", "clinical_assessment", "critical_decision_making"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C022",
+    "title": "Treatment Planning for Complex Patients",
+    "skills": ["treatment_planning", "data_analysis", "documentation"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C023",
+    "title": "Physician Documentation and Coding",
+    "skills": ["documentation", "icd_coding", "attention_to_detail"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C024",
+    "title": "Image Interpretation for Non-Radiologists",
+    "skills": ["image_interpretation", "diagnosis", "report_writing"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C025",
+    "title": "Cardiac Emergencies and Rapid Response",
+    "skills": ["emergency_care", "critical_decision_making", "advanced_life_support"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C026",
+    "title": "Pediatric Diagnosis and Communication",
+    "skills": ["diagnosis", "patient_communication", "patient_education"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C027",
+    "title": "Infectious Disease Management for Hospitalists",
+    "skills": ["diagnosis", "infection_control", "treatment_planning"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C028",
+    "title": "Perioperative Assessment for Surgeons",
+    "skills": ["clinical_assessment", "risk_management", "documentation"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C029",
+    "title": "Palliative Care Communication for Physicians",
+    "skills": ["patient_communication", "care_planning", "documentation"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C030",
+    "title": "Physician Leadership and Team Management",
+    "skills": ["leadership", "communication", "strategic_planning"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C031",
+    "title": "Basic Life Support Certification",
+    "skills": ["basic_life_support", "emergency_care", "patient_care"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "C032",
+    "title": "Advanced Cardiovascular Life Support",
+    "skills": ["advanced_life_support", "critical_decision_making", "emergency_care"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C033",
+    "title": "Pre-Hospital Care for Emergency Teams",
+    "skills": ["pre_hospital_care", "patient_transport", "incident_response"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C034",
+    "title": "Mass Casualty and Disaster Response",
+    "skills": ["incident_response", "risk_management", "process_mapping"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C035",
+    "title": "Emergency Department Triage Systems",
+    "skills": ["clinical_assessment", "emergency_care", "data_entry"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C036",
+    "title": "Resuscitation Team Communication",
+    "skills": ["communication", "teamwork", "critical_decision_making"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C037",
+    "title": "Trauma Nursing and Stabilization",
+    "skills": ["emergency_care", "patient_care", "documentation"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C038",
+    "title": "ICU Hemodynamic Monitoring",
+    "skills": ["clinical_assessment", "critical_decision_making", "documentation"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C039",
+    "title": "Sepsis Recognition and Management",
+    "skills": ["clinical_assessment", "diagnosis", "treatment_planning"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C040",
+    "title": "Rapid Response Team Operations",
+    "skills": ["incident_response", "critical_decision_making", "patient_care"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C041",
+    "title": "Rehabilitation Planning for PT and OT",
+    "skills": ["rehabilitation_planning", "mobility_training", "documentation"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C042",
+    "title": "Mobility and Transfer Safety Techniques",
+    "skills": ["mobility_training", "safety_procedures", "patient_care"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "C043",
+    "title": "Speech Therapy for Adult Patients",
+    "skills": ["speech_therapy", "patient_education", "documentation"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C044",
+    "title": "Swallowing Assessment and Dysphagia Management",
+    "skills": ["swallowing_assessment", "rehabilitation_planning", "documentation"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C045",
+    "title": "Respiratory Care Fundamentals",
+    "skills": ["respiratory_care", "patient_care", "documentation"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "C046",
+    "title": "Ventilator Management for Respiratory Therapists",
+    "skills": ["ventilator_management", "respiratory_care", "critical_decision_making"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C047",
+    "title": "Nutrition Assessment and Meal Planning",
+    "skills": ["nutrition_assessment", "meal_planning", "patient_education"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C048",
+    "title": "Case Management for Complex Patients",
+    "skills": ["case_management", "care_planning", "documentation"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C049",
+    "title": "Behavioral Health and Crisis De-escalation",
+    "skills": ["patient_communication", "incident_response", "patient_education"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C050",
+    "title": "Interdisciplinary Care Coordination",
+    "skills": ["care_planning", "communication", "quality_improvement"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C051",
+    "title": "Basics of Radiology Equipment Operation",
+    "skills": ["imaging_equipment_operation", "radiation_safety", "patient_care"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "C052",
+    "title": "CT Imaging Protocols and Safety",
+    "skills": ["imaging_equipment_operation", "radiation_safety", "quality_control"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C053",
+    "title": "MRI Safety and Patient Screening",
+    "skills": ["imaging_equipment_operation", "patient_care", "safety_procedures"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C054",
+    "title": "Ultrasound Imaging Fundamentals",
+    "skills": ["imaging_equipment_operation", "patient_care", "documentation"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "C055",
+    "title": "Radiation Safety Certification",
+    "skills": ["radiation_safety", "safety_procedures", "documentation"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C056",
+    "title": "Image Quality and Artifact Reduction",
+    "skills": ["quality_control", "image_interpretation", "imaging_equipment_operation"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C057",
+    "title": "Contrast Administration and Monitoring",
+    "skills": ["patient_care", "risk_management", "documentation"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C058",
+    "title": "Radiology Workflow and Documentation",
+    "skills": ["documentation", "record_keeping", "data_entry"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "C059",
+    "title": "PACS and Image Management Systems",
+    "skills": ["data_entry", "record_keeping", "technical_troubleshooting"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C060",
+    "title": "Advanced Imaging Interpretation Review",
+    "skills": ["image_interpretation", "diagnosis", "report_writing"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C061",
+    "title": "Clinical Laboratory Safety and Protocols",
+    "skills": ["lab_testing", "safety_procedures", "sanitation"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "C062",
+    "title": "Sample Processing and Handling",
+    "skills": ["sample_processing", "lab_testing", "record_keeping"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "C063",
+    "title": "Quality Control in the Clinical Lab",
+    "skills": ["quality_control", "documentation", "attention_to_detail"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C064",
+    "title": "Blood Bank Procedures and Cross-Matching",
+    "skills": ["lab_testing", "sample_processing", "attention_to_detail"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C065",
+    "title": "Microbiology and Culture Techniques",
+    "skills": ["lab_testing", "sample_processing", "infection_control"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C066",
+    "title": "Chemistry Analyzer Operations",
+    "skills": ["lab_testing", "equipment_maintenance", "quality_control"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C067",
+    "title": "Laboratory Data Entry and Reporting",
+    "skills": ["data_entry", "record_keeping", "documentation"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "C068",
+    "title": "Point-of-Care Testing Competency",
+    "skills": ["lab_testing", "quality_control", "patient_care"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C069",
+    "title": "Laboratory Accreditation and Compliance",
+    "skills": ["quality_improvement", "documentation", "process_mapping"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C070",
+    "title": "Advanced Hematology Interpretation",
+    "skills": ["lab_testing", "data_analysis", "report_writing"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C071",
+    "title": "Health Information Management and HIPAA",
+    "skills": ["hipaa_compliance", "record_keeping", "documentation"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C072",
+    "title": "Medical Billing and Reimbursement Basics",
+    "skills": ["medical_billing", "insurance_processing", "attention_to_detail"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "C073",
+    "title": "Customer Service in Healthcare Front Offices",
+    "skills": ["customer_service", "communication", "feedback_analysis"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "C074",
+    "title": "Scheduling and Data Entry for Unit Secretaries",
+    "skills": ["data_entry", "record_keeping", "customer_service"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "C075",
+    "title": "Healthcare Leadership and Team Management",
+    "skills": ["leadership", "staff_training", "communication"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C076",
+    "title": "Strategic Planning for Hospital Leaders",
+    "skills": ["strategic_planning", "data_analysis", "report_writing"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C077",
+    "title": "Budget Management in Healthcare",
+    "skills": ["budget_management", "data_analysis", "attention_to_detail"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C078",
+    "title": "Quality Improvement Methods (PDSA, Lean, Six Sigma)",
+    "skills": ["quality_improvement", "continuous_improvement", "process_mapping"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C079",
+    "title": "Designing and Delivering Staff Training",
+    "skills": ["staff_training", "curriculum_development", "presentation_skills"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C080",
+    "title": "Patient Experience and Feedback Analysis",
+    "skills": ["feedback_analysis", "customer_service", "report_writing"],
+    "difficulty": "intermediate"
+  },
+
+  {
+    "id": "C081",
+    "title": "Workplace Safety and OSHA Compliance",
+    "skills": ["safety_procedures", "sanitation", "risk_management"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "C082",
+    "title": "Security Awareness and Observation Skills",
+    "skills": ["security_observation", "observation_skills", "incident_response"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C083",
+    "title": "Incident Reporting and Documentation for Security",
+    "skills": ["incident_response", "report_writing", "documentation"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C084",
+    "title": "Patient Transport Safety and Equipment Use",
+    "skills": ["patient_transport", "equipment_handling", "safety_procedures"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "C085",
+    "title": "De-escalation Techniques for Frontline Staff",
+    "skills": ["communication", "incident_response", "customer_service"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C086",
+    "title": "Emergency Preparedness and Evacuation",
+    "skills": ["risk_management", "process_mapping", "incident_response"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C087",
+    "title": "Parking and Valet Safety Procedures",
+    "skills": ["patient_transport", "observation_skills", "customer_service"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "C088",
+    "title": "Security Supervisor Leadership Skills",
+    "skills": ["leadership", "security_observation", "incident_response"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C089",
+    "title": "First Aid and Basic Life Support for Non-Clinical Staff",
+    "skills": ["basic_life_support", "patient_care", "incident_response"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "C090",
+    "title": "Violence Prevention in Healthcare Settings",
+    "skills": ["risk_management", "security_observation", "communication"],
+    "difficulty": "advanced"
+  },
+
+  {
+    "id": "C091",
+    "title": "Basics of Medical Equipment Maintenance",
+    "skills": ["equipment_maintenance", "equipment_handling", "safety_procedures"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "C092",
+    "title": "Sterilization and Central Supply Procedures",
+    "skills": ["sterilization", "inventory_management", "sanitation"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C093",
+    "title": "Technical Troubleshooting for Biomedical Devices",
+    "skills": ["technical_troubleshooting", "equipment_repair", "electronic_diagnostics"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C094",
+    "title": "Preventive Maintenance for Facilities Staff",
+    "skills": ["equipment_maintenance", "equipment_repair", "safety_procedures"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C095",
+    "title": "Inventory Management for Supplies and Equipment",
+    "skills": ["inventory_management", "record_keeping", "attention_to_detail"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "C096",
+    "title": "Environmental Services: Cleaning and Infection Prevention",
+    "skills": ["sanitation", "infection_control", "attention_to_detail"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "C097",
+    "title": "IT Support Basics for Clinical Staff",
+    "skills": ["technical_troubleshooting", "customer_service", "data_entry"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "C098",
+    "title": "Health Data Analytics with Python",
+    "skills": ["data_analysis", "report_writing", "quality_improvement"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C099",
+    "title": "Clinical Informatics and EHR Optimization",
+    "skills": ["process_mapping", "data_analysis", "staff_education"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "C100",
+    "title": "Cybersecurity Awareness for Healthcare Workers",
+    "skills": ["risk_management", "hipaa_compliance", "staff_education"],
+    "difficulty": "intermediate"
+  }
+]
