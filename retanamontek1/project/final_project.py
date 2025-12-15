@@ -55,24 +55,24 @@ def create_max_heap(index, heap, n):
 
 # This used the create_max_heap function to create a perfect binary max heap.
 def heap_sort(to_heap):
-    n = len(to_heap) // 2 - 1
+    curNode = len(to_heap) // 2 - 1
 
     # start from the last non-leaf node
-    while n >= 0:
-        create_max_heap(n, to_heap, len(to_heap)) # call max heapify
-        n = n - 1
+    while curNode >= 0:
+        create_max_heap(curNode, to_heap, len(to_heap)) # call max heapify. 
+        curNode = curNode - 1
 
     # One by one extract elements from heap
-    n = len(to_heap) - 1
-    while n > 0:
+    curNode = len(to_heap) - 1
+    while curNode > 0:
         # Swap numbers
         temp = to_heap[0]
-        to_heap[0] = to_heap[n]
-        to_heap[n] = temp
+        to_heap[0] = to_heap[curNode]
+        to_heap[curNode] = temp
 
         # call max heapify again on the reduced heap
-        create_max_heap(0, to_heap, n)
-        n = n - 1
+        create_max_heap(0, to_heap, curNode)
+        curNode = curNode - 1
 
 
 # Below are various classes and methods used to create the graph.
