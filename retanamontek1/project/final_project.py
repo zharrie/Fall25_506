@@ -212,7 +212,7 @@ def create_graph(lst):
     # Loop through friends and add edges
     for friend in friends:
       friend_vertex = connections.get_vertex(friend)
-      if friend_vertex is None:
+      if friend_vertex is None: # if they didn' t list anyone they know, skip
         continue
       connections.add_edge(annotator_vertex, friend_vertex)
 
@@ -225,19 +225,19 @@ def create_graph(lst):
 
 # This function takes in the total list of speakers, the annotators (from the heap), and the data to be annotated (also in heap format).
 def allocate(total_speakers, annotators, data):
-  # Create a dictionary to hold the files that have been annotated and by whom
-  annotated_files = {audio[1]: [] for audio in data}
+  # Create a dictionary to track files
+  # Has who is tracking them.
+  annotated_files = {audio[1]: [] for audio in data} # audio[1] is the name/ of the data file and the value is a list of annotators. 
 
-  # Create a dictionary to hold the allocations
+  # Create a dictionary for the allocations
   allocated = {}
 
   # Loop through each annotator in the list and allocate files
   # Each annotator should get 2 files to annotate
   for person in annotators:
 
-    # Initialize annotating list for each person
-    person['annotating'] = []
-    allocated[person['name']] = []
+    person['annotating'] = [] # This is for the person's dictionary is the annotators list
+    allocated[person['name']] = [] # This is for the allocation dictionary
 
     # This keeps track of how many files have been assigned to the annotator so it won't exceed 2
     assigned = 0
@@ -264,13 +264,13 @@ def allocate(total_speakers, annotators, data):
           continue
 
         # Skip if it's their own file
-        if audio_name in person['annotating']:
+        if audio_name == person['name']:
           continue
 
         # Allocate the file to the annotator
-        person['annotating'].append(audio)
-        allocated[person['name']].append(audio_name) # Add audio name to allocated list
-        annotated_files[audio_name].append(person['name']) # Add annotator to the audio's list
+        person['annotating'].append(audio) # append to personal dictionary
+        allocated[person['name']].append(audio_name) # append to allocation dictionary
+        annotated_files[audio_name].append(person['name']) # append to the file's list of annotators
         assigned += 1 # Increment the assigned count
 
   return allocated    
@@ -395,7 +395,7 @@ def main(input_file):
   '''
   Use a graph
   If two people are adjacent, then they can't work on each others' files. They obviously can't work on their own files
-  Adjacency list is O(V + E) + better for sparce graphs like friend circles where not everyone knows each other,
+  Adjacency list is O(V + E) better for sparce graphs like friend circles where not everyone knows each other,
   and adjacency matrix is O(V^2), better for dense small graphs. So adjacency list is better here.
   This is all done through functions not called immediately here.
   '''
