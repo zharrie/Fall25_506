@@ -4,6 +4,7 @@ from library import MusicLibrary
 from sorting import quick_sort, merge_sort
 from playlist import Playlist
 
+# Safe path handling for VS Code
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_PATH = os.path.join(BASE_DIR, "data", "songs.csv")
 
@@ -40,21 +41,28 @@ def main():
 
     print(f"\nMusic library loaded: {len(library.all_songs)} songs")
 
-    playlist = None
+    playlists = {}          # name -> Playlist
+    current_playlist = None
 
     while True:
         display_menu()
         choice = input("Choice: ").strip()
 
+        # 1. Browse library
         if choice == "1":
             library.display_library()
 
+        # 2. Search songs
         elif choice == "2":
             query = input("Enter title keyword: ")
             results = library.search_by_title(query)
-            for song in results:
-                print(song)
+            if results:
+                for song in results:
+                    print(song)
+            else:
+                print("No songs found.")
 
+        # 3. Sort library
         elif choice == "3":
             sort_menu()
             sort_choice = input("Select: ").strip()
@@ -95,42 +103,99 @@ def main():
                 f"Completed in {end - start:.4f} seconds.\n"
             )
 
-            print("Top 5 songs:\n")
-            for song in reversed(sorted_songs[-5:]):
+            print(f"Top 5 songs by {key}:\n")
+            top5 = sorted_songs[-5:]
+            top5.reverse()
+            for song in top5:
                 print(song)
 
+        # 4. Playlist manager (MULTIPLE PLAYLISTS)
         elif choice == "4":
-            print("\nPlaylist Manager:")
-            print("1. New playlist")
-            print("2. Add songs")
-            print("3. View playlist")
-            print("4. Back")
+            while True:
+                print("\nPlaylist Manager:")
+                print("1. New playlist")
+                print("2. Select playlist")
+                print("3. Add songs to playlist")
+                print("4. View playlist")
+                print("5. Remove next song")
+                print("6. Back")
 
-            sub = input("Select: ").strip()
+                sub = input("Select: ").strip()
 
-            if sub == "1":
-                name = input("Playlist name: ")
-                playlist = Playlist(name)
-                print(f'Playlist "{name}" created.')
-
-            elif sub == "2" and playlist:
-                print("\nEnter song titles (one per line, 'done' to finish):")
-                while True:
-                    title = input()
-                    if title.lower() == "done":
-                        break
-                    matches = library.search_by_title(title)
-                    if matches:
-                        playlist.add_song(matches[0])
-                        print(f'Added: {matches[0]}')
+                # Create playlist
+                if sub == "1":
+                    name = input("Playlist name: ")
+                    if name in playlists:
+                        print("Playlist already exists.")
                     else:
-                        print("Song not found.")
+                        playlists[name] = Playlist(name)
+                        current_playlist = playlists[name]
+                        print(f'Playlist "{name}" created and selected.')
 
-            elif sub == "3" and playlist:
-                playlist.play()
+                # Select playlist
+                elif sub == "2":
+                    if not playlists:
+                        print("No playlists available.")
+                        continue
 
+                    print("\nAvailable playlists:")
+                    for name in playlists:
+                        print("-", name)
+
+                    selection = input("Select playlist: ")
+                    if selection in playlists:
+                        current_playlist = playlists[selection]
+                        print(f'Playlist "{selection}" selected.')
+                    else:
+                        print("Playlist not found.")
+
+                # Add songs
+                elif sub == "3":
+                    if not current_playlist:
+                        print("No playlist selected.")
+                        continue
+
+                    print("\nEnter song titles (one per line, 'done' to finish):")
+                    while True:
+                        title = input()
+                        if title.lower() == "done":
+                            break
+                        matches = library.search_by_title(title)
+                        if matches:
+                            current_playlist.add_song(matches[0])
+                            print(f'Added: {matches[0]}')
+                        else:
+                            print("Song not found.")
+
+                # View playlist
+                elif sub == "4":
+                    if not current_playlist:
+                        print("No playlist selected.")
+                    else:
+                        current_playlist.play()
+
+                # Remove song
+                elif sub == "5":
+                    if not current_playlist:
+                        print("No playlist selected.")
+                    else:
+                        removed = current_playlist.remove_song()
+                        if removed:
+                            print(f"Removed: {removed}")
+                        else:
+                            print("Playlist is empty.")
+
+                elif sub == "6":
+                    break
+
+                else:
+                    print("Invalid option.")
+
+        # 5. Compare sorting performance
         elif choice == "5":
             sizes = [10, 20, len(library.all_songs)]
+
+            print("\nSorting performance comparison:\n")
             for size in sizes:
                 sample = library.all_songs[:size]
 
@@ -148,6 +213,7 @@ def main():
                     f"Merge Sort: {merge_time:.4f}s"
                 )
 
+        # 6. Exit
         elif choice == "6":
             print("Goodbye!")
             break
