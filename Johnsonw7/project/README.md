@@ -1,7 +1,24 @@
 Organizational Training Recommendation System
+=============================================
 by Evelyn Dishaw & Wesley Johnson
 
 This code is intended to allow a member of an organization to view employee profiles including their skills, analyze skill gaps for their ideal role, get training recommendations to address those gaps, compare algorithms for class purposes, list all courses, and show a graph-based training path for individual missing skills. If implemented for an actual organization, these data structures and algorithms would allow any employee to set a path with recommendations for them to achieve their dream position. 
+
+# Modules & Their Key Functions
+  1. **models.py:** creates classes/methods for Employee, Course, and  Role
+  2. **data_loader.py:** converts raw data from the .json data files listed below into employee, course, and role objects
+  3. **algorithms.py:** creates algorithms to compute skill gaps, build a skill index, make course recommendations, and sort course recommendations
+  3. **main.py:** prints/displays information and is the "entry point" for the interactive main menu
+  5. **recommender.py** creates a class for TrainingRecommender and runs the algorithms from algorithms.py
+  6. **training_graph.py** creates a Graph class and creates graph-building and breadth-first search algorithms
+
+# Data Files
+  1. courses.json
+  2. employees.json
+  3. roles.json
+
+# Instructions
+  Run the main.py file to access the main menu. The user will select a menu option and follow the prompts.
 
 
 # Main Menu Functionality Overview:
